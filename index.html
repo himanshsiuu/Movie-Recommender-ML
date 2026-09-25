@@ -1478,7 +1478,396 @@
       font-size: 0.72rem;
       color: var(--text-tertiary);
     }
-  </style>
+  
+    /* ==========================================================================
+       AI MOOD & GENRE RECOMMENDER STYLES
+       ========================================================================== */
+    .ai-tab-btn {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(236, 72, 153, 0.18)) !important;
+      border: 1px solid rgba(168, 85, 247, 0.4) !important;
+      color: #e9d5ff !important;
+      font-weight: 600 !important;
+      position: relative;
+    }
+    .ai-tab-btn:hover, .ai-tab-btn.active {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.35)) !important;
+      border-color: rgba(236, 72, 153, 0.7) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 22px rgba(168, 85, 247, 0.35);
+    }
+    .ai-sparkle-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ec4899;
+      box-shadow: 0 0 10px #ec4899;
+      margin-right: 6px;
+      animation: pulseSparkle 2s infinite ease-in-out;
+    }
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .mood-hero-card {
+      background: linear-gradient(135deg, rgba(20, 22, 34, 0.9), rgba(16, 18, 27, 0.95));
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(168, 85, 247, 0.08);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      margin-bottom: 24px;
+    }
+    .mood-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.05) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .mood-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #d8b4fe;
+      margin-bottom: 12px;
+    }
+
+    .mood-hero-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      font-weight: 600;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 0%, #e9d5ff 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .mood-hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 820px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .mood-presets-section {
+      margin-bottom: 22px;
+    }
+    .presets-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-champagne);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .presets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+    .preset-chip {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+    .preset-chip:hover {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+    .preset-chip.active {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+      border-color: rgba(236, 72, 153, 0.6);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+    }
+    .preset-chip-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preset-emoji {
+      font-size: 1.25rem;
+    }
+    .preset-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .preset-sub {
+      font-size: 0.74rem;
+      color: var(--text-tertiary);
+      line-height: 1.3;
+    }
+
+    .mood-input-container {
+      background: rgba(10, 12, 18, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 18px 20px;
+      position: relative;
+    }
+    .mood-input-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .mood-suggestion-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .suggestion-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .suggestion-tag:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.4);
+      color: #ffffff;
+      transform: scale(1.03);
+    }
+
+    .mood-textarea-wrapper {
+      position: relative;
+    }
+    .mood-textarea {
+      width: 100%;
+      background: rgba(15, 17, 24, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 90px;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .mood-textarea:focus {
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+    }
+
+    .mood-actions-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .mood-surprise-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mood-surprise-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .mood-analyze-btn {
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 50%, #ea580c 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 10px 24px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(147, 51, 234, 0.35);
+      transition: all 0.25s ease;
+    }
+    .mood-analyze-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(219, 39, 119, 0.45);
+      filter: brightness(1.1);
+    }
+    .mood-analyze-btn:active {
+      transform: translateY(0);
+    }
+
+    /* AI Diagnosis Banner */
+    .diagnosis-banner {
+      background: linear-gradient(135deg, rgba(23, 26, 38, 0.95), rgba(16, 18, 28, 0.98));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      margin-bottom: 28px;
+    }
+    .diagnosis-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .diagnosis-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #d8b4fe;
+      margin-bottom: 4px;
+    }
+    .diagnosis-archetype {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .diagnosis-vibe-tag {
+      font-size: 0.85rem;
+      color: #f472b6;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .diagnosis-top-genres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .diag-genre-pill {
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #e9d5ff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .diag-genre-pill strong {
+      color: #fbcfe8;
+    }
+    .diagnosis-insight-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid #db2777;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 16px;
+      margin-bottom: 20px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .metric-meter-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+    .metric-header strong {
+      color: #ffffff;
+      font-size: 0.82rem;
+    }
+    .metric-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .metric-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mood-results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .results-count-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    .mood-reason-tag {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: #f3e8ff;
+      line-height: 1.4;
+      margin-top: 10px;
+    }
+
+</style>
 </head>
 <body>
   <!-- Live Cinematic Ambient Light & Projector Dust -->
@@ -1518,6 +1907,9 @@
 
     <!-- Navigation Tabs -->
     <nav class="nav-tabs">
+      <button class="tab-btn ai-tab-btn" id="tabBtnMood" onclick="showTab('tabMoodAI')">
+        <span class="ai-sparkle-dot"></span> ✨ AI Mood & Genre Matcher
+      </button>
       <button class="tab-btn active" onclick="showTab('tabRecom')">Curated Recommendations</button>
       <button class="tab-btn" onclick="showTab('tabClips')">🎞️ Cinema Clips & Audio Teasers (<span id="clipsTabCount">146</span>)</button>
       <button class="tab-btn" onclick="showTab('tabSeries')">📺 Acclaimed TV Series (<span id="seriesTabCount">34</span>)</button>
@@ -1527,6 +1919,107 @@
       <button class="tab-btn" onclick="showTab('tabFunnel')">Candidate Funnel Architecture</button>
       <button class="tab-btn" onclick="showTab('tabCode')">Production PyTorch Code</button>
     </nav>
+
+    <!-- TAB: AI Mood & Genre Matcher -->
+    <div class="tab-content" id="tabMoodAI">
+      <div class="mood-hero-card">
+        <div class="mood-hero-badge">🔮 NEURAL EMOTION & VIBE DIAGNOSTIC AGENT</div>
+        <h2 class="mood-hero-title">Discover Your Genre & Movies by Mood</h2>
+        <p class="mood-hero-subtitle">
+          Tell our AI agent how you're feeling right now — your energy level, your evening context, or your emotional state. Our neural semantic engine diagnoses your ideal cinematic palette and handpicks perfectly matching titles from our 146-item library.
+        </p>
+
+        <!-- Quick Vibe Selector Chips -->
+        <div class="mood-presets-section">
+          <div class="presets-title">⚡ Quick Mood Archetypes:</div>
+          <div class="presets-grid" id="moodPresetsContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Custom Mood Natural Language Input -->
+        <div class="mood-input-container">
+          <div class="mood-input-header">
+            <span>💬 Describe your vibe or current evening:</span>
+            <div class="mood-suggestion-tags">
+              <span class="suggestion-tag" onclick="appendMoodTag('cozy and low-stress')">+ Cozy & Low-Stress</span>
+              <span class="suggestion-tag" onclick="appendMoodTag('hilarious witty comedy')">+ Hard Laughs</span>
+              <span class="suggestion-tag" onclick="appendMoodTag('romantic date night chemistry')">+ Date Night</span>
+              <span class="suggestion-tag" onclick="appendMoodTag('mind-bending plot twist')">+ Mind-Bender</span>
+              <span class="suggestion-tag" onclick="appendMoodTag('high adrenaline action heist')">+ Adrenaline Rush</span>
+              <span class="suggestion-tag" onclick="appendMoodTag('deep emotional cry')">+ Emotional Cry</span>
+            </div>
+          </div>
+          <div class="mood-textarea-wrapper">
+            <textarea id="moodTextInput" rows="3" class="mood-textarea" placeholder="E.g. 'I had a super long, exhausting week at work. I am feeling drained and just want to cozy up under a blanket with a warm, funny, feel-good rom-com that will make me smile and unwind...'"></textarea>
+            <div class="mood-actions-bar">
+              <button class="mood-surprise-btn" onclick="triggerRandomMood()"><span style="margin-right:6px;">🎲</span> Surprise Me</button>
+              <button class="mood-analyze-btn" id="btnAnalyzeMood" onclick="runMoodDiagnosis()">
+                <span class="btn-sparkle">✨</span> Analyze Mood & Match Movies
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Diagnosis Results Section -->
+      <div id="moodDiagnosisResults" style="display:none; margin-top:24px;">
+        <!-- Mood Diagnosis Summary Banner -->
+        <div class="diagnosis-banner">
+          <div class="diagnosis-header">
+            <div>
+              <div class="diagnosis-label">AI EMOTION DIAGNOSIS</div>
+              <div class="diagnosis-archetype" id="diagArchetype">The Heartfelt Romantic & Comfort Seeker 💖</div>
+              <div class="diagnosis-vibe-tag" id="diagVibeTag">Warmth, Charming Banter & Romantic Spark</div>
+            </div>
+            <div class="diagnosis-top-genres" id="diagTopGenresRow">
+              <!-- Top diagnosed genres -->
+            </div>
+          </div>
+          
+          <p class="diagnosis-insight-text" id="diagInsightText">
+            You're craving feel-good emotional warmth, effortless chemistry, and delightful wit that uplifts your spirits and melts away daily fatigue.
+          </p>
+
+          <!-- 4 Neural Emotion Progress Meters -->
+          <div class="metrics-grid">
+            <div class="metric-meter-card">
+              <div class="metric-header"><span>⚡ Energy Level</span><strong id="metricEnergy">45%</strong></div>
+              <div class="metric-track"><div class="metric-fill" id="metricEnergyFill" style="width:45%; background:linear-gradient(90deg, #3b82f6, #06b6d4);"></div></div>
+            </div>
+            <div class="metric-meter-card">
+              <div class="metric-header"><span>💖 Emotional Warmth</span><strong id="metricWarmth">85%</strong></div>
+              <div class="metric-track"><div class="metric-fill" id="metricWarmthFill" style="width:85%; background:linear-gradient(90deg, #ec4899, #f43f5e);"></div></div>
+            </div>
+            <div class="metric-meter-card">
+              <div class="metric-header"><span>🧩 Cognitive Complexity</span><strong id="metricComplexity">40%</strong></div>
+              <div class="metric-track"><div class="metric-fill" id="metricComplexityFill" style="width:40%; background:linear-gradient(90deg, #8b5cf6, #a855f7);"></div></div>
+            </div>
+            <div class="metric-meter-card">
+              <div class="metric-header"><span>🔥 Adrenaline Index</span><strong id="metricAdrenaline">30%</strong></div>
+              <div class="metric-track"><div class="metric-fill" id="metricAdrenalineFill" style="width:30%; background:linear-gradient(90deg, #f59e0b, #ef4444);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Matched Movie Recommendations Grid -->
+        <div class="mood-results-header">
+          <div>
+            <h3 style="font-family:var(--font-serif); font-size:1.8rem; font-weight:600; color:#ffffff;">
+              🎬 Handpicked Movies for Your Mood
+            </h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-top:2px;">
+              Ranked by neural cosine similarity against your diagnosed emotional vector.
+            </p>
+          </div>
+          <div class="results-count-pill" id="moodMatchedCountBadge">12 Tailored Recommendations</div>
+        </div>
+
+        <div class="movie-grid" id="moodMoviesGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
 
     <!-- TAB 1: Curated Recommendations -->
     <div class="tab-content active" id="tabRecom">
@@ -2149,6 +2642,214 @@ class TwoTowerRecommender(nn.Module):
       });
     });
 
+    
+    // =========================================================================
+    // AI MOOD & GENRE RECOMMENDER LOGIC
+    // =========================================================================
+    let moodPresets = {};
+    let activePresetId = null;
+
+    async function initMoodAI() {
+      try {
+        const res = await fetch('/api/mood-presets');
+        moodPresets = await res.json();
+        renderMoodPresets();
+      } catch (err) {
+        console.warn('Could not load mood presets, using default:', err);
+      }
+    }
+
+    function renderMoodPresets() {
+      const container = document.getElementById('moodPresetsContainer');
+      if (!container) return;
+      
+      container.innerHTML = Object.values(moodPresets).map(p => `
+        <div class="preset-chip ${activePresetId === p.id ? 'active' : ''}" onclick="selectMoodPreset('${p.id}')">
+          <div class="preset-chip-top">
+            <span class="preset-emoji">${p.emoji}</span>
+            <span class="preset-label">${p.label}</span>
+          </div>
+          <div class="preset-sub">${p.subtitle}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectMoodPreset(presetId) {
+      activePresetId = presetId;
+      renderMoodPresets();
+      const preset = moodPresets[presetId];
+      if (preset) {
+        const textarea = document.getElementById('moodTextInput');
+        if (textarea) textarea.value = preset.prompt;
+        runMoodDiagnosis();
+      }
+    }
+
+    function appendMoodTag(tagText) {
+      const textarea = document.getElementById('moodTextInput');
+      if (!textarea) return;
+      if (textarea.value.trim().length > 0) {
+        textarea.value += ', ' + tagText;
+      } else {
+        textarea.value = tagText;
+      }
+      textarea.focus();
+    }
+
+    function triggerRandomMood() {
+      const keys = Object.keys(moodPresets);
+      if (keys.length === 0) return;
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      selectMoodPreset(randomKey);
+    }
+
+    async function runMoodDiagnosis() {
+      const textarea = document.getElementById('moodTextInput');
+      const query = textarea ? textarea.value.trim() : '';
+      const promptQuery = query || 'cozy and low-stress rom-com';
+      
+      const btn = document.getElementById('btnAnalyzeMood');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="btn-sparkle">⏳</span> Diagnosing Mood...';
+      }
+
+      try {
+        const res = await fetch(`/api/mood-recommend?q=${encodeURIComponent(promptQuery)}&limit=12`);
+        const data = await res.json();
+        renderMoodResults(data);
+      } catch (err) {
+        console.error('Mood diagnosis failed:', err);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="btn-sparkle">✨</span> Analyze Mood & Match Movies';
+        }
+      }
+    }
+
+    function renderMoodResults(data) {
+      const resultsSection = document.getElementById('moodDiagnosisResults');
+      if (!resultsSection) return;
+      resultsSection.style.display = 'block';
+
+      const ma = data.mood_analysis;
+      document.getElementById('diagArchetype').innerText = ma.archetype;
+      document.getElementById('diagVibeTag').innerText = ma.vibe_tag;
+      document.getElementById('diagInsightText').innerText = ma.insight;
+
+      // Top genres pills
+      const topGenresRow = document.getElementById('diagTopGenresRow');
+      if (topGenresRow) {
+        topGenresRow.innerHTML = (ma.top_genres || []).map(g => `
+          <div class="diag-genre-pill">
+            <span>${g.icon || '🎬'}</span>
+            <span>${g.genre}</span>
+            <strong>${g.affinity_pct}%</strong>
+          </div>
+        `).join('');
+      }
+
+      // Metrics meters
+      const metrics = ma.metrics || {};
+      const energy = metrics.energy_level || 50;
+      const warmth = metrics.emotional_warmth || 50;
+      const complexity = metrics.complexity_level || 50;
+      const adrenaline = metrics.adrenaline_level || 50;
+
+      document.getElementById('metricEnergy').innerText = `${energy}%`;
+      document.getElementById('metricEnergyFill').style.width = `${energy}%`;
+
+      document.getElementById('metricWarmth').innerText = `${warmth}%`;
+      document.getElementById('metricWarmthFill').style.width = `${warmth}%`;
+
+      document.getElementById('metricComplexity').innerText = `${complexity}%`;
+      document.getElementById('metricComplexityFill').style.width = `${complexity}%`;
+
+      document.getElementById('metricAdrenaline').innerText = `${adrenaline}%`;
+      document.getElementById('metricAdrenalineFill').style.width = `${adrenaline}%`;
+
+      // Movies grid
+      const moviesGrid = document.getElementById('moodMoviesGrid');
+      const recs = data.recommendations || [];
+      document.getElementById('moodMatchedCountBadge').innerText = `${recs.length} Tailored Recommendations`;
+
+      if (moviesGrid) {
+        moviesGrid.innerHTML = '';
+        recs.forEach(m => {
+          moviesGrid.appendChild(createMoodMovieCard(m));
+        });
+      }
+
+      // Smooth scroll to results
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function createMoodMovieCard(m) {
+      const card = document.createElement('div');
+      card.className = 'movie-card';
+      card.onclick = (e) => {
+        if (e.target.closest('.card-imdb-link') || e.target.closest('.card-clip-badge')) return;
+        openMovieModal(m);
+      };
+
+      const posterSrc = m.poster_url || '';
+      const posterCaption = (m.selected_poster || '').substring(2);
+      const imdbUrl = m.imdb_url || `https://www.imdb.com/find?q=${encodeURIComponent(m.title)}`;
+      const isSeries = m.media_type === 'series';
+      const yearLabel = isSeries ? `📺 ${m.total_seasons || 'Series'}` : `${m.year}`;
+
+      card.innerHTML = `
+        <div class="movie-poster">
+          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" onerror="this.style.opacity='0'; this.nextElementSibling.style.display='flex';" />
+          <div class="poster-fallback-overlay" style="display: ${posterSrc ? 'none' : 'flex'};">
+            <div style="font-size:2.2rem; margin-bottom:8px;">${(m.selected_poster || (isSeries ? '📺' : '🎬')).split(' ')[0]}</div>
+            <div style="font-size:0.75rem; color:#94a3b8;">${m.title}</div>
+          </div>
+          <span class="category-subtle">${yearLabel}</span>
+          <span class="match-pill" style="background:linear-gradient(135deg, rgba(168,85,247,0.9), rgba(236,72,153,0.9)); color:#ffffff;">
+            ✨ ${m.match_pct || 98}% Mood Match
+          </span>
+          
+          <div class="card-clip-badge" title="Watch Short Clip with Sound" onclick="event.stopPropagation(); playQuickClipModal('${m.id}')">
+            <span class="eq-wave">
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+            </span>
+            <span>▶ Clip 🔊</span>
+          </div>
+
+          <a href="${imdbUrl}" target="_blank" rel="noopener noreferrer" class="card-imdb-link" title="Open ${m.title} on IMDb" onclick="event.stopPropagation()">
+            IMDb ↗
+          </a>
+          <div class="poster-gradient-overlay"></div>
+          <div class="poster-artwork-tag">🎨 ${posterCaption || m.title}</div>
+        </div>
+        <div class="movie-body">
+          <div>
+            <div class="movie-title">${m.title}</div>
+            <div class="movie-metadata">
+              <span style="color:var(--accent-gold-bright); font-weight:700;">★ ${m.rating}</span>
+              <span>•</span>
+              <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:130px;">${m.director}</span>
+              <span>•</span>
+              <span>${m.runtime || (isSeries ? 'Series' : '110m')}</span>
+            </div>
+            <div class="genre-pills">
+              ${(m.genres || []).map(g => `<span class="genre-chip">${g}</span>`).join('')}
+            </div>
+            <div class="mood-reason-tag">
+              ${m.ai_reason || '✨ Perfect match calibrated for your current vibe.'}
+            </div>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+
     function showTab(tabId) {
       document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
@@ -2160,7 +2861,11 @@ class TwoTowerRecommender(nn.Module):
       const activeBtn = btns.find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
       if (activeBtn) activeBtn.classList.add("active");
 
-      if (tabId === "tabBrowseCatalog") {
+      if (tabId === "tabMoodAI") {
+        if (Object.keys(moodPresets).length === 0) {
+          initMoodAI();
+        }
+      } else if (tabId === "tabBrowseCatalog") {
         filterAndRenderCatalog();
       } else if (tabId === "tabClips") {
         filterAndRenderClips();
