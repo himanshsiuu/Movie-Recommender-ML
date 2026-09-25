@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 Himanshu's Movie & Series Directory — Two-Tower ML, Video Clips & Sound Preview</title>
+  <meta name="description" content="A timeless, classic and minimal movie & TV series recommendation engine powered by Two-Tower Neural Embeddings with 146+ curated titles, live video preview clips with sound, and official IMDb integration.">
+
+  <!-- Google Fonts: Editorial Serif + Clean Sans + Technical Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      /* Classic & Minimal Palette */
+      --bg-base: #07080c;
+      --bg-surface: #101218;
+      --bg-surface-hover: #171a24;
+      --bg-elevated: #1b1f2b;
+      
+      /* Refined Accents */
+      --accent-gold: #d4af37;
+      --accent-gold-bright: #f59e0b;
+      --imdb-yellow: #f5c518;
+      --accent-champagne: #e2d9cc;
+      --accent-bronze: #c5a880;
+      --accent-muted: #8e95a5;
+      
+      /* Text Colors */
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-tertiary: #64748b;
+      
+      /* Subtle Lines & Hairline Borders */
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(245, 158, 11, 0.45);
+      --shadow-subtle: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+      
+      /* Typography */
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Live Cinematic Ambient Light & Dust */
+    .cinema-ambient-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .projector-beam {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 800px;
+      background: radial-gradient(ellipse at top, rgba(245, 158, 11, 0.08) 0%, rgba(225, 29, 72, 0.03) 45%, transparent 75%);
+      filter: blur(60px);
+      opacity: 0.85;
+      animation: projectorPulse 9s ease-in-out infinite alternate;
+    }
+
+    .cinema-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      top: 15%;
+      left: 8%;
+      width: 450px;
+      height: 450px;
+      background: #d4af37;
+      animation: floatSlow 20s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      top: 55%;
+      right: 5%;
+      width: 550px;
+      height: 550px;
+      background: #e11d48;
+      animation: floatSlow 24s ease-in-out infinite reverse;
+    }
+
+    .orb-3 {
+      bottom: 5%;
+      left: 30%;
+      width: 400px;
+      height: 400px;
+      background: #0284c7;
+      animation: floatSlow 18s ease-in-out infinite 3s;
+    }
+
+    #cinemaDustCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+    }
+
+    .film-grain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    @keyframes projectorPulse {
+      0% { opacity: 0.65; transform: translateX(-50%) scale(0.98); }
+      50% { opacity: 0.95; transform: translateX(-49%) scale(1.02); }
+      100% { opacity: 0.75; transform: translateX(-51%) scale(1.0); }
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.08); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* Container Layout */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 36px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header Styling */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.84rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .catalog-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-gold-bright);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* User Persona Selector */
+    .user-selector-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .user-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-tertiary);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+    }
+
+    .user-pill:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .user-pill.active {
+      background: #ffffff;
+      color: #0c0d10;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 32px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 2px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-tertiary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 10px 4px 14px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-gold-bright);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-gold-bright);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    }
+
+    /* Tab Content Visibility */
+    .tab-content {
+      display: none;
+      animation: fadeInTab 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Active User Persona Banner */
+    .persona-bar {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.08) 0%, rgba(16, 18, 24, 0.8) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 16px 22px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .persona-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-champagne);
+    }
+
+    .persona-meta {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      margin-top: 2px;
+    }
+
+    .persona-tag {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent-gold-bright);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    /* Section Titles */
+    .section-header {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+      margin-top: 3px;
+    }
+
+    /* Toolbar for Catalog Search & Filter */
+    .catalog-toolbar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .toolbar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #090a0f;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 11px 16px 11px 40px;
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-gold-bright);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+
+    .sort-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--text-tertiary);
+    }
+
+    .sort-select {
+      background: #090a0f;
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .media-type-pills {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .media-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .media-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+
+    .media-pill.active {
+      background: var(--accent-gold-bright);
+      color: #000000;
+      font-weight: 700;
+      border-color: var(--accent-gold-bright);
+    }
+
+    .genre-filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+
+    .genre-filter-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-tertiary);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .genre-filter-pill:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .genre-filter-pill.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: var(--accent-gold-bright);
+      font-weight: 600;
+    }
+
+    /* Movies & Series Grid */
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* Movie Card Design */
+    .movie-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 158, 11, 0.35);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.1);
+    }
+
+    .movie-poster {
+      position: relative;
+      width: 100%;
+      height: 360px;
+      background: #090a0f;
+      overflow: hidden;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .movie-card:hover .poster-img {
+      transform: scale(1.05);
+    }
+
+    .poster-gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 65%;
+      background: linear-gradient(to top, rgba(16, 18, 24, 1) 0%, rgba(16, 18, 24, 0.6) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .poster-fallback-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #12151e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .category-subtle {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--accent-champagne);
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      padding: 3px 8px;
+      border-radius: 4px;
+      z-index: 3;
+    }
+
+    .match-pill {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(245, 158, 11, 0.9);
+      color: #000000;
+      font-size: 0.74rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      padding: 3px 9px;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 3;
+    }
+
+    /* Card Quick Clip & Sound Buttons */
+    .card-clip-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(16, 18, 24, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #ffffff;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 4;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card-clip-badge:hover {
+      background: var(--accent-gold-bright);
+      color: #000;
+      border-color: var(--accent-gold-bright);
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+
+    .card-imdb-link {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: var(--imdb-yellow);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 4;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-imdb-link:hover {
+      background: #ffdb4d;
+      transform: scale(1.05);
+    }
+
+    .poster-artwork-tag {
+      position: absolute;
+      top: 42px;
+      left: 12px;
+      background: rgba(16, 18, 24, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-tertiary);
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 3;
+      max-width: 85%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .movie-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .movie-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .movie-metadata {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+
+    .genres-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 6px;
+    }
+
+    .genre-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .sound-theme-chip {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--accent-bronze);
+      font-size: 0.66rem;
+      font-family: var(--font-mono);
+      padding: 3px 6px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stats-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.74rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    .btn-details-hint {
+      color: var(--accent-gold-bright);
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Equalizer Sound Waves Animation */
+    .eq-wave {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .eq-bar {
+      width: 2px;
+      background: var(--accent-gold-bright);
+      border-radius: 1px;
+      animation: eqBounce 0.8s ease-in-out infinite alternate;
+    }
+
+    .eq-bar:nth-child(1) { height: 30%; animation-delay: 0.1s; }
+    .eq-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+    .eq-bar:nth-child(3) { height: 50%; animation-delay: 0.2s; }
+    .eq-bar:nth-child(4) { height: 100%; animation-delay: 0.4s; }
+
+    @keyframes eqBounce {
+      0% { height: 20%; }
+      100% { height: 100%; }
+    }
+
+    /* ========================================================
+       CINEMA CLIPS & AUDIO TEASERS LOUNGE (TAB 3)
+       ======================================================== */
+    .cinema-lounge {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Hero Master Stage Player */
+    .hero-stage-card {
+      background: linear-gradient(180deg, #0f1118 0%, #07080c 100%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 158, 11, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-stage-layout {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      .hero-stage-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stage-video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      background: #000000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .stage-video-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .stage-info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stage-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stage-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .stage-plot {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Interactive Master Sound & Control Deck */
+    .master-sound-deck {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sound-deck-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .volume-slider-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .volume-slider {
+      accent-color: var(--accent-gold-bright);
+      cursor: pointer;
+      width: 100px;
+    }
+
+    .btn-sound-toggle {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent-gold-bright);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+    }
+
+    .btn-sound-toggle:hover {
+      background: var(--accent-gold-bright);
+      color: #000;
+      transform: scale(1.02);
+    }
+
+    .btn-synth-theme {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-champagne);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-synth-theme:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* Live Audio Visualizer Canvas */
+    .audio-visualizer-canvas {
+      width: 100%;
+      height: 38px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stage-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Clips Playlist Grid */
+    .clips-playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .clip-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .clip-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+    }
+
+    .clip-card.active-playing {
+      border-color: var(--accent-gold-bright);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+    }
+
+    .clip-thumbnail-wrapper {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .clip-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .clip-card:hover .clip-thumb-img {
+      transform: scale(1.06);
+      opacity: 1;
+    }
+
+    .clip-play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(245, 158, 11, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+
+    .clip-card:hover .clip-play-overlay {
+      transform: translate(-50%, -50%) scale(1.15);
+      background: #ffc107;
+    }
+
+    .clip-duration-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .clip-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .clip-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .clip-sound-theme {
+      font-size: 0.72rem;
+      color: var(--accent-bronze);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ========================================================
+       IMDb MOVIE / SERIES DETAILS MODAL WITH VIDEO PLAYER
+       ======================================================== */
+    .movie-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(3, 4, 7, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeInModal 0.25s ease forwards;
+    }
+
+    .movie-modal-backdrop.active {
+      display: flex;
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .movie-modal-card {
+      background: #0f1118;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 16px;
+      max-width: 1040px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.12);
+      position: relative;
+      animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideUpModal {
+      from { transform: translateY(24px) scale(0.97); }
+      to { transform: translateY(0) scale(1); }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(225, 29, 72, 0.8);
+      border-color: #e11d48;
+      transform: rotate(90deg);
+    }
+
+    /* Modal Interior Layout */
+    .modal-content-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 860px) {
+      .modal-content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .modal-poster-col {
+      background: #090b10;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-right: 1px solid var(--border-subtle);
+      align-items: center;
+    }
+
+    .modal-poster-img {
+      width: 100%;
+      max-width: 250px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-imdb-main {
+      width: 100%;
+      background: var(--imdb-yellow);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(245, 197, 24, 0.35);
+    }
+
+    .btn-imdb-main:hover {
+      background: #ffdb4d;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(245, 197, 24, 0.5);
+    }
+
+    .modal-info-col {
+      padding: 28px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .modal-movie-title {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .imdb-rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 197, 24, 0.15);
+      border: 1px solid rgba(245, 197, 24, 0.4);
+      color: var(--imdb-yellow);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+    }
+
+    .meta-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+    }
+
+    .match-large-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fbbf24;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .modal-plot-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .modal-section-title {
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold-bright);
+      margin-bottom: 6px;
+    }
+
+    .modal-plot-text {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .modal-credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 0.82rem;
+    }
+
+    .credit-item span.credit-label {
+      color: var(--text-tertiary);
+      font-size: 0.72rem;
+      display: block;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .credit-item span.credit-val {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .modal-ml-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.07) 0%, rgba(22, 27, 38, 0.6) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+    }
+
+    /* Modal Video Preview Player Section */
+    .modal-video-section {
+      padding: 24px 30px;
+      background: #08090d;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 52%; /* 16:9 cinematic widescreen */
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-video-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-video-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Studio Card Box */
+    .card-box {
+      background: rgba(16, 20, 29, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    .card-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-box-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-classic {
+      background: #ffffff;
+      color: #0c0d10;
+    }
+
+    .btn-classic:hover {
+      background: var(--accent-champagne);
+    }
+
+    .btn-gold {
+      background: var(--accent-gold-bright);
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: #ffb733;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Code Block */
+    .code-container {
+      background: #06070a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    /* Funnel Grid */
+    .funnel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .funnel-step {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 22px;
+      text-align: left;
+    }
+
+    .funnel-count {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .funnel-label {
+      font-size: 0.82rem;
+      color: var(--accent-champagne);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .funnel-sub {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Live Cinematic Ambient Light & Projector Dust -->
+  <div class="cinema-ambient-wrapper">
+    <div class="projector-beam"></div>
+    <div class="cinema-glow-orb orb-1"></div>
+    <div class="cinema-glow-orb orb-2"></div>
+    <div class="cinema-glow-orb orb-3"></div>
+    <canvas id="cinemaDustCanvas"></canvas>
+    <div class="film-grain-overlay"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand-group">
+        <div class="brand-title">
+          🎬 Himanshu's Movie & Series Directory
+        </div>
+        <div class="brand-subtitle">
+          <span>Two-Tower Deep Neural Vector Retrieval Studio</span>
+          <span>•</span>
+          <span class="catalog-badge" id="headerCatalogBadge">146 Titles • 112 Movies • 34 TV Series</span>
+        </div>
+      </div>
+
+      <!-- User Selector Pills -->
+      <div class="user-selector-wrapper">
+        <button class="user-pill active" onclick="switchUser('u_romcom_fan')">Emma (Romance & TV)</button>
+        <button class="user-pill" onclick="switchUser('u_scifi_fan')">Alex (Sci-Fi & Dark)</button>
+        <button class="user-pill" onclick="switchUser('u_drama_cinephile')">Sarah (Peaky Blinders & Drama)</button>
+        <button class="user-pill" onclick="switchUser('u_family_animation')">Maya (Arcane & Anime)</button>
+        <button class="user-pill" onclick="switchUser('u_horror_thriller')">Liam (Mentalist & Thrillers)</button>
+        <button class="user-pill" onclick="switchUser('u_action_blockbuster')">Noah (Money Heist & Action)</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="showTab('tabRecom')">Curated Recommendations</button>
+      <button class="tab-btn" onclick="showTab('tabClips')">🎞️ Cinema Clips & Audio Teasers (<span id="clipsTabCount">146</span>)</button>
+      <button class="tab-btn" onclick="showTab('tabSeries')">📺 Acclaimed TV Series (<span id="seriesTabCount">34</span>)</button>
+      <button class="tab-btn" onclick="showTab('tabBrowseCatalog')">Browse Full Library (<span id="tabCount">146</span>)</button>
+      <button class="tab-btn" onclick="showTab('tabRomComs')">Romantic Comedies</button>
+      <button class="tab-btn" onclick="showTab('tabTraining')">Training & Latency Studio</button>
+      <button class="tab-btn" onclick="showTab('tabFunnel')">Candidate Funnel Architecture</button>
+      <button class="tab-btn" onclick="showTab('tabCode')">Production PyTorch Code</button>
+    </nav>
+
+    <!-- TAB 1: Curated Recommendations -->
+    <div class="tab-content active" id="tabRecom">
+      <!-- Active Persona Summary Bar -->
+      <div class="persona-bar">
+        <div>
+          <div class="persona-name" id="userProfileName">Sarah Miller — Auteur Cinema, Crime & Peak TV Drama</div>
+          <div class="persona-meta" id="userHistoryBadge">Recent Selections: Peaky Blinders, Succession, Better Call Saul, Chernobyl, The Godfather...</div>
+        </div>
+        <div class="persona-tag" id="userArtworkTag">POSTER BIAS: EMOTIONAL SCENE</div>
+      </div>
+
+      <!-- Main Recommendations Grid -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Personalized Two-Tower Selections</h2>
+          <div class="section-desc">Vector cosine similarity derived via User Taste & Item Multi-Hot 8D Embeddings (Click card or 'Preview Clip' for sound)</div>
+        </div>
+      </div>
+      <div class="movies-grid" id="mainMoviesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 2: Dedicated Video Clips & Sound Lounge -->
+    <div class="tab-content" id="tabClips">
+      <div class="cinema-lounge">
+        <!-- Hero Stage Master Video Player -->
+        <div class="hero-stage-card" id="heroStageCard">
+          <div class="hero-stage-layout">
+            <!-- Left: Video Frame -->
+            <div>
+              <div class="stage-video-container">
+                <iframe id="stageIframe" class="stage-video-frame" src="https://www.youtube-nocookie.com/embed/gCcx85zbxz4?enablejsapi=1&playsinline=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <div style="margin-top:10px;">
+                <canvas id="stageAudioEqCanvas" class="audio-visualizer-canvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Right: Stage Info Column -->
+            <div class="stage-info-column">
+              <div class="stage-badge-row">
+                <span class="catalog-badge" id="stageMediaType">🎬 Feature Film</span>
+                <span class="meta-badge" id="stageYear">2017</span>
+                <span class="imdb-rating-badge">★ <strong id="stageRating">8.0</strong>/10</span>
+                <span class="match-large-badge" id="stageMatch">★ 95% Match</span>
+              </div>
+
+              <div>
+                <h2 class="stage-title" id="stageTitle">Blade Runner 2049</h2>
+                <div style="font-size:0.82rem; color:var(--text-tertiary); font-family:var(--font-mono); margin-top:3px;" id="stageDirector">Directed by Denis Villeneuve • 164 min</div>
+              </div>
+
+              <div class="stage-plot" id="stagePlot">
+                Thirty years after the events of Blade Runner (1982), a new Blade Runner, L.A.P.D. Officer "K" (Ryan Gosling), unearths a long-buried secret that has the potential to plunge what's left of society into chaos.
+              </div>
+
+              <!-- Master Sound & Control Deck -->
+              <div class="master-sound-deck">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.75rem; color:var(--accent-gold-bright); font-family:var(--font-mono); font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">
+                    🎧 Sound Aesthetic & Sonic Profile
+                  </span>
+                  <span style="font-size:0.72rem; color:var(--text-tertiary); font-family:var(--font-mono);" id="stageDuration">⏱️ 2:31 Clip</span>
+                </div>
+                <div style="font-size:0.8rem; color:var(--accent-champagne); font-family:var(--font-mono);" id="stageSoundTheme">
+                  Sci-Fi Vangelis Synth & Sub-Bass
+                </div>
+
+                <div class="sound-deck-controls">
+                  <div class="volume-slider-group">
+                    <span id="volIcon">🔊</span>
+                    <input type="range" min="0" max="100" value="85" class="volume-slider" id="stageVolumeSlider" oninput="handleVolumeChange(this.value)" />
+                    <span id="volValue">85%</span>
+                  </div>
+                  <button class="btn-sound-toggle" onclick="toggleClipSound()">
+                    <span>🔊 Sound Unmute / HD</span>
+                  </button>
+                  <button class="btn-synth-theme" onclick="playCurrentSynthTheme()">
+                    <span>🎵 Play Sonic Theme</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="stage-actions-row">
+                <button class="btn btn-outline" onclick="playPreviousClip()">⏮ Prev Clip</button>
+                <button class="btn btn-outline" onclick="playNextClip()">⏭ Next Clip</button>
+                <button class="btn btn-classic" onclick="openActiveStageModal()">⭐ View Full Synopsis</button>
+                <a href="https://www.imdb.com/title/tt1856101/" target="_blank" rel="noopener noreferrer" id="stageImdbLink" class="btn btn-gold">
+                  IMDb ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clips Toolbar: Search & Genre Filter -->
+        <div class="catalog-toolbar" style="margin-bottom:0;">
+          <div class="toolbar-top">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="clipsSearchInput" class="search-input" placeholder="Search 146+ preview clips by movie/series title, music theme, or cast..." oninput="filterAndRenderClips()" />
+            </div>
+            <div style="font-size:0.82rem; color:var(--text-tertiary); font-family:var(--font-mono);">
+              Showing <strong id="clipsFilteredCount" style="color:#ffffff;">146</strong> Preview Clips with Sound
+            </div>
+          </div>
+          <div class="genre-filter-row" id="clipsGenreFilterRow">
+            <!-- Filter pills populated in JS -->
+          </div>
+        </div>
+
+        <!-- Clips Video Grid -->
+        <div class="clips-playlist-grid" id="clipsPlaylistGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Dedicated TV Series Tab -->
+    <div class="tab-content" id="tabSeries">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Acclaimed Television & Streaming Series</h2>
+          <div class="section-desc">Masterpieces including Peaky Blinders, Money Heist, The Mentalist, Breaking Bad, Game of Thrones, Dark, and more</div>
+        </div>
+      </div>
+      <div class="movies-grid" id="seriesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 4: Browse All Movies & Series Catalog -->
+    <div class="tab-content" id="tabBrowseCatalog">
+      <!-- Toolbar: Search, Media Type & Genre Filter -->
+      <div class="catalog-toolbar">
+        <div class="toolbar-top">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="catalogSearchInput" class="search-input" placeholder="Search 146+ movies & series by title (e.g. Peaky Blinders, Money Heist), cast, or creator..." oninput="filterAndRenderCatalog()" />
+          </div>
+          <div class="sort-wrapper">
+            <span>Sort by:</span>
+            <select id="catalogSortSelect" class="sort-select" onchange="filterAndRenderCatalog()">
+              <option value="match">Two-Tower Match %</option>
+              <option value="rating_desc">IMDb Rating ★ (High to Low)</option>
+              <option value="year_desc">Release Year (Newest)</option>
+              <option value="p_click_desc">Predictive P(Click)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Media Type Selector -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div class="media-type-pills">
+            <button class="media-pill active" onclick="setMediaTypeFilter('all')">All Titles (<span id="mediaAllCount">146</span>)</button>
+            <button class="media-pill" onclick="setMediaTypeFilter('series')">📺 TV Series (<span id="mediaSeriesCount">34</span>)</button>
+            <button class="media-pill" onclick="setMediaTypeFilter('movie')">🎬 Movies (<span id="mediaMoviesCount">112</span>)</button>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-tertiary); font-family:var(--font-mono);">
+            Showing <span id="filteredCount" style="color:#ffffff; font-weight:700;">146</span> titles
+          </div>
+        </div>
+
+        <!-- Genre Filter Row -->
+        <div class="genre-filter-row" id="genreFilterContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="movies-grid" id="catalogMoviesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 5: Romantic Comedies & Feel-Good -->
+    <div class="tab-content" id="tabRomComs">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Romantic Comedies & Uplifting Cinema</h2>
+          <div class="section-desc">Heartwarming narratives, witty banter, and iconic romance from Notting Hill and La La Land to Crazy Rich Asians</div>
+        </div>
+      </div>
+      <div class="movies-grid" id="romcomsGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 6: Training & Latency Studio -->
+    <div class="tab-content" id="tabTraining">
+      <div class="card-box">
+        <div class="card-box-header">
+          <div>
+            <div class="card-box-title">Two-Tower Offline Training & Embedding Latency Studio</div>
+            <div style="font-size:0.82rem; color:var(--text-tertiary); margin-top:2px;">
+              Simulate In-Batch Matrix Factorization training across 146 items & vector index lookups
+            </div>
+          </div>
+          <button class="btn btn-classic" id="btnTrainEpochs" onclick="trainSimulatedEpochs()">Train 5 Epochs</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:20px;">
+          <div class="funnel-step">
+            <div class="funnel-count" id="diagEpoch" style="color:var(--accent-gold-bright);">10 / 10</div>
+            <div class="funnel-label">Current Epoch</div>
+            <div class="funnel-sub">Step size: 0.001</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count" id="diagLoss">0.14</div>
+            <div class="funnel-label">In-Batch Contrastive Loss</div>
+            <div class="funnel-sub">Softmax Temperature = 0.07</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count" id="diagRecall" style="color:#4ade80;">89.2%</div>
+            <div class="funnel-label">Recall@10 Retrieval</div>
+            <div class="funnel-sub">Target: &gt; 85%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count" id="diagNdcg">0.874</div>
+            <div class="funnel-label">NDCG@10 Ranking Metric</div>
+            <div class="funnel-sub">Discounted cumulative gain</div>
+          </div>
+        </div>
+
+        <div style="height:260px; width:100%;">
+          <canvas id="trainChartCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: Candidate Funnel Architecture -->
+    <div class="tab-content" id="tabFunnel">
+      <div class="card-box">
+        <div class="card-box-header">
+          <div>
+            <div class="card-box-title">Industrial Candidate Funnel Architecture</div>
+            <div style="font-size:0.82rem; color:var(--text-tertiary); margin-top:2px;">
+              Multi-stage funnel scaling from millions of raw items to top personalized rankings
+            </div>
+          </div>
+        </div>
+        <div class="funnel-grid">
+          <div class="funnel-step">
+            <div class="funnel-count">10,000,000</div>
+            <div class="funnel-label">1. Global Video Inventory</div>
+            <div class="funnel-sub">Raw unfiltered global titles across all languages, formats, and licenses.</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count">1,000</div>
+            <div class="funnel-label">2. Vector Search (Faiss / HNSW)</div>
+            <div class="funnel-sub">Sub-5ms cosine retrieval via Two-Tower offline dense item embeddings.</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count">100</div>
+            <div class="funnel-label">3. Deep Neural Ranking</div>
+            <div class="funnel-sub">Cross-features: context, time of day, device bandwidth, and recent skips.</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-count">20</div>
+            <div class="funnel-label">4. Diversity & Artwork Personalization</div>
+            <div class="funnel-sub">Contextual Multi-Armed Bandit selecting thumbnail artwork bias.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 8: Production PyTorch Code -->
+    <div class="tab-content" id="tabCode">
+      <div class="card-box">
+        <div class="card-box-title" style="margin-bottom:14px;">TwoTowerRecommender.py (Production PyTorch)</div>
+        <pre class="code-container"><code>import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class TwoTowerRecommender(nn.Module):
+    def __init__(self, num_users, num_items, num_genres=15, embed_dim=64):
+        super(TwoTowerRecommender, self).__init__()
+        # User Tower
+        self.user_embedding = nn.Embedding(num_users, embed_dim)
+        self.user_fc = nn.Sequential(
+            nn.Linear(embed_dim, 128),
+            nn.BatchNorm1d(128),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(128, embed_dim)
+        )
+        # Item Tower
+        self.item_embedding = nn.Embedding(num_items, embed_dim)
+        self.genre_linear = nn.Linear(num_genres, embed_dim)
+        self.item_fc = nn.Sequential(
+            nn.Linear(embed_dim * 2, 128),
+            nn.BatchNorm1d(128),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(128, embed_dim)
+        )
+        self.temperature = nn.Parameter(torch.ones(1) * 0.07)
+
+    def forward(self, user_ids, item_ids, item_genres):
+        u_raw = self.user_embedding(user_ids)
+        u_vec = F.normalize(self.user_fc(u_raw), p=2, dim=-1)
+        
+        i_raw = self.item_embedding(item_ids)
+        g_raw = self.genre_linear(item_genres)
+        combined_item = torch.cat([i_raw, g_raw], dim=-1)
+        v_vec = F.normalize(self.item_fc(combined_item), p=2, dim=-1)
+        
+        logits = torch.matmul(u_vec, v_vec.T) / self.temperature
+        return logits
+</code></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IMDb Movie / Series Details Modal with Live Video Clip Player & Sound -->
+  <div class="movie-modal-backdrop" id="movieModalBackdrop" onclick="handleBackdropClick(event)">
+    <div class="movie-modal-card" id="movieModalCard">
+      <button class="modal-close-btn" onclick="closeMovieModal()">✕</button>
+      
+      <!-- Upper Section: Poster & Meta Details -->
+      <div class="modal-content-grid">
+        <!-- Poster Column -->
+        <div class="modal-poster-col">
+          <img src="" alt="" id="modalPosterImg" class="modal-poster-img" />
+          <a href="#" target="_blank" rel="noopener noreferrer" id="modalImdbBtn" class="btn-imdb-main">
+            <span>⭐ Open on IMDb</span>
+            <span style="font-size:0.8rem;">↗</span>
+          </a>
+        </div>
+
+        <!-- Info Column -->
+        <div class="modal-info-col">
+          <div>
+            <div class="modal-movie-title" id="modalMovieTitle">Peaky Blinders</div>
+            <div style="font-size:0.84rem; color:var(--text-tertiary); margin-top:4px;" id="modalYearDirector">2013–2022 • Created by Steven Knight</div>
+          </div>
+
+          <div class="modal-badges-row">
+            <div class="imdb-rating-badge">
+              <span>★ <strong id="modalImdbRating">8.7</strong>/10</span>
+              <span style="font-size:0.7rem; opacity:0.8;" id="modalImdbVotes">(650,000 votes)</span>
+            </div>
+            <div class="meta-badge" id="modalMediaType" style="color:var(--accent-gold); font-weight:700;">📺 TV Series</div>
+            <div class="meta-badge" id="modalRated">TV-MA</div>
+            <div class="meta-badge" id="modalRuntime">6 Seasons</div>
+            <div class="meta-badge" id="modalMetascore" style="color:#4ade80;">85 Metascore</div>
+            <div class="match-large-badge" id="modalMatchBadge">★ 95.2% Match</div>
+          </div>
+
+          <!-- Plot Synopsis -->
+          <div class="modal-plot-section">
+            <div class="modal-section-title">Plot Synopsis & Series Brief</div>
+            <div class="modal-plot-text" id="modalPlotText">Loading synopsis...</div>
+          </div>
+
+          <!-- Credits -->
+          <div class="modal-credits-grid">
+            <div class="credit-item">
+              <span class="credit-label">Starring Cast</span>
+              <span class="credit-val" id="modalCast">Cillian Murphy, Paul Anderson</span>
+            </div>
+            <div class="credit-item">
+              <span class="credit-label">Awards & Recognition</span>
+              <span class="credit-val" id="modalAwards">Won BAFTA TV Award</span>
+            </div>
+            <div class="credit-item" style="grid-column: span 2;">
+              <span class="credit-label">Genres</span>
+              <div class="genres-row" id="modalGenresRow" style="margin-top:4px; margin-bottom:0;"></div>
+            </div>
+          </div>
+
+          <!-- Two-Tower ML Telemetry -->
+          <div class="modal-ml-box">
+            <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
+              <span>Predictive P(Click): <strong id="modalPClick" style="color:var(--accent-gold-bright);">92%</strong></span>
+              <span>Predictive P(Watch &ge; 70%): <strong id="modalPComplete" style="color:var(--accent-champagne);">88%</strong></span>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-tertiary);" id="modalArtworkNote">
+              🎨 Personalized Artwork Bias Scene: <span>Loading...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Lower Section: Video Clip Preview Player with Sound -->
+      <div class="modal-video-section">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="modal-section-title" style="margin-bottom:0; font-size:0.82rem;">
+            🎬 High-Definition Video Preview Clip & Soundscape
+          </div>
+          <div style="font-size:0.75rem; color:var(--accent-gold-bright); font-family:var(--font-mono);" id="modalClipDuration">
+            ⏱️ 2:30 Teaser
+          </div>
+        </div>
+
+        <div class="modal-video-wrapper">
+          <iframe id="modalVideoFrame" class="modal-video-frame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <div style="margin-top:2px;">
+          <canvas id="modalAudioEqCanvas" class="audio-visualizer-canvas"></canvas>
+        </div>
+
+        <div class="modal-video-controls">
+          <div style="font-size:0.8rem; color:var(--accent-champagne); font-family:var(--font-mono);" id="modalSoundTheme">
+            🎧 Soundtrack Aesthetic: Sci-Fi Synthesizer & Bass Pulse
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn-sound-toggle" onclick="toggleModalVideoSound()">
+              <span>🔊 Unmute HD Audio</span>
+            </button>
+            <button class="btn-synth-theme" onclick="playModalSynthTheme()">
+              <span>🎵 Play Sonic Theme</span>
+            </button>
+            <a href="#" target="_blank" rel="noopener noreferrer" id="modalYoutubeBtn" class="btn btn-outline" style="font-size:0.78rem; padding:6px 12px;">
+              YouTube 4K ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       CINEMATIC WEB AUDIO SYNTHESIZER ENGINE
+       ======================================================== */
+    class CinematicAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.analyser = null;
+        this.isMuted = false;
+        this.volume = 0.85;
+      }
+
+      initContext() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+          this.analyser = this.ctx.createAnalyser();
+          this.analyser.fftSize = 64;
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(this.volume, this.ctx.currentTime);
+          this.masterGain.connect(this.analyser);
+          this.analyser.connect(this.ctx.destination);
+        }
+        if (this.ctx.state === "suspended") {
+          this.ctx.resume();
+        }
+      }
+
+      setVolume(val) {
+        this.volume = Math.max(0, Math.min(1, val));
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : this.volume, this.ctx.currentTime, 0.05);
+        }
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : this.volume, this.ctx.currentTime, 0.05);
+        }
+        return this.isMuted;
+      }
+
+      playGenreTheme(genre, title) {
+        try {
+          this.initContext();
+          const now = this.ctx.currentTime;
+          const g = (genre || "Sci-Fi").toLowerCase();
+
+          if (g.includes("sci-fi") || g.includes("space")) {
+            // Hans Zimmer / Vangelis Sub-Bass + Harmonic Fifth Sweeps
+            this.createTone(55, "sawtooth", now, 2.8, 0.45, 120, 1800);
+            this.createTone(82.5, "triangle", now + 0.1, 2.5, 0.35, 200, 2200);
+            this.createTone(880, "sine", now + 0.3, 2.0, 0.15, 800, 4000);
+          } else if (g.includes("action") || g.includes("adventure")) {
+            // Heavy Adrenaline Percussive Impact & Low Drone
+            this.createImpact(now, 0.6);
+            this.createTone(65, "sawtooth", now + 0.05, 1.8, 0.5, 400, 120);
+            this.createTone(130, "square", now + 0.2, 1.5, 0.25, 600, 300);
+          } else if (g.includes("romance") || g.includes("comedy")) {
+            // Warm Acoustic E-Maj7 Chord Arpeggio (Warmth & Sparkle)
+            const notes = [329.63, 415.30, 493.88, 622.25]; // E4, G#4, B4, D#5
+            notes.forEach((freq, idx) => {
+              this.createTone(freq, "sine", now + (idx * 0.14), 2.2, 0.25, 1500, 800);
+            });
+          } else if (g.includes("crime") || g.includes("drama")) {
+            // Deep Cello Drone & Minor Melancholy
+            this.createTone(73.42, "sawtooth", now, 3.0, 0.4, 250, 150); // D2
+            this.createTone(110.0, "triangle", now + 0.2, 2.6, 0.3, 350, 200); // A2
+            this.createTone(174.61, "sine", now + 0.5, 2.2, 0.2, 500, 300); // F3
+          } else if (g.includes("animation") || g.includes("family")) {
+            // Whimsical Celesta Bell Sparkles
+            const bells = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+            bells.forEach((freq, idx) => {
+              this.createTone(freq, "sine", now + (idx * 0.1), 1.8, 0.28, 3000, 1200);
+            });
+          } else if (g.includes("horror") || g.includes("thriller") || g.includes("mystery")) {
+            // Suspense Glissando + Sub Resonance
+            this.createTone(48, "sine", now, 3.2, 0.5, 100, 80);
+            this.createPitchSlide(220, 180, "sawtooth", now + 0.1, 2.5, 0.3, 400);
+          } else {
+            // Prestige Television Chime
+            this.createTone(65.41, "triangle", now, 2.5, 0.45, 300, 150);
+            this.createTone(196.0, "sine", now + 0.2, 2.2, 0.25, 800, 400);
+          }
+        } catch (e) {
+          console.warn("Audio Context blocked until user interaction:", e);
+        }
+      }
+
+      createTone(freq, type, startTime, duration, maxGain, filterStart, filterEnd) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(filterStart || 1000, startTime);
+        if (filterEnd) {
+          filter.frequency.exponentialRampToValueAtTime(Math.max(20, filterEnd), startTime + duration);
+        }
+
+        gain.gain.setValueAtTime(0.001, startTime);
+        gain.gain.exponentialRampToValueAtTime(maxGain, startTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(startTime);
+        osc.stop(startTime + duration + 0.1);
+      }
+
+      createImpact(startTime, maxGain) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(140, startTime);
+        osc.frequency.exponentialRampToValueAtTime(35, startTime + 0.35);
+
+        gain.gain.setValueAtTime(maxGain, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.5);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(startTime);
+        osc.stop(startTime + 0.55);
+      }
+
+      createPitchSlide(startFreq, endFreq, type, startTime, duration, maxGain, filterFreq) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(startFreq, startTime);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration);
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(filterFreq || 500, startTime);
+
+        gain.gain.setValueAtTime(0.001, startTime);
+        gain.gain.linearRampToValueAtTime(maxGain, startTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(startTime);
+        osc.stop(startTime + duration + 0.1);
+      }
+    }
+
+    const audioEngine = new CinematicAudioEngine();
+
+    /* ========================================================
+       APPLICATION STATE & EVENT HANDLERS
+       ======================================================== */
+    let activeUserId = "u_drama_cinephile";
+    let currentRecommendations = null;
+    let allScoredMovies = [];
+    let selectedGenreFilter = "All";
+    let selectedClipsGenreFilter = "All";
+    let selectedMediaTypeFilter = "all";
+    let currentStageMovieIndex = 0;
+    let currentModalMovie = null;
+    let isStageSoundMuted = false;
+    let trainChart = null;
+    let epochHistory = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let lossHistory = [1.82, 1.45, 1.12, 0.88, 0.65, 0.48, 0.35, 0.24, 0.18, 0.14];
+    let recallHistory = [0.38, 0.52, 0.63, 0.71, 0.77, 0.81, 0.84, 0.86, 0.88, 0.89];
+
+    const ALL_GENRES = ["All", "Crime", "Mystery", "Sci-Fi", "Action", "Drama", "Animation", "Comedy", "Thriller", "Romance", "Adventure", "Fantasy", "Horror", "History", "Biography"];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initGenreFilters();
+      initClipsGenreFilters();
+      loadRecommendations(activeUserId);
+      initTrainChart();
+      initVisualizerLoop();
+
+      // Close modal on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMovieModal();
+        if (e.key === "m" || e.key === "M") toggleClipSound();
+      });
+    });
+
+    function showTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) targetTab.classList.add("active");
+
+      const btns = Array.from(document.querySelectorAll(".tab-btn"));
+      const activeBtn = btns.find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
+      if (activeBtn) activeBtn.classList.add("active");
+
+      if (tabId === "tabBrowseCatalog") {
+        filterAndRenderCatalog();
+      } else if (tabId === "tabClips") {
+        filterAndRenderClips();
+      }
+    }
+
+    function switchUser(userId) {
+      activeUserId = userId;
+      document.querySelectorAll(".user-pill").forEach(p => {
+        p.classList.toggle("active", p.getAttribute("onclick").includes(userId));
+      });
+      loadRecommendations(userId);
+    }
+
+    function setMediaTypeFilter(type) {
+      selectedMediaTypeFilter = type;
+      document.querySelectorAll(".media-pill").forEach(p => {
+        p.classList.toggle("active", p.getAttribute("onclick").includes(`'${type}'`));
+      });
+      filterAndRenderCatalog();
+    }
+
+    async function loadRecommendations(userId) {
+      try {
+        const res = await fetch(`/api/recommendations?user_id=${userId}`);
+        const data = await res.json();
+        currentRecommendations = data;
+        allScoredMovies = data.all_scored || [];
+
+        // Update active profile header
+        const user = data.user_profile;
+        document.getElementById("userProfileName").innerText = user.name;
+        document.getElementById("userHistoryBadge").innerText = `Recent Selections: ${user.watch_history.join(", ")}`;
+        document.getElementById("userArtworkTag").innerText = `POSTER BIAS: ${user.artwork_bias.toUpperCase()} SCENE`;
+        
+        if (data.total_catalog_count) {
+          document.getElementById("headerCatalogBadge").innerText = `${data.total_catalog_count} Titles • ${data.movies_count} Movies • ${data.series_count} TV Series`;
+          document.getElementById("tabCount").innerText = data.total_catalog_count;
+          document.getElementById("clipsTabCount").innerText = data.total_catalog_count;
+          document.getElementById("seriesTabCount").innerText = data.series_count;
+          document.getElementById("mediaAllCount").innerText = data.total_catalog_count;
+          document.getElementById("mediaSeriesCount").innerText = data.series_count;
+          document.getElementById("mediaMoviesCount").innerText = data.movies_count;
+        }
+
+        renderMainMovies(data.recommendations, user);
+        renderSeries(data.top_series);
+        renderRomComs(data.romcoms);
+        filterAndRenderCatalog();
+        filterAndRenderClips();
+
+        // Load first movie into Stage Player
+        if (allScoredMovies.length > 0) {
+          loadMovieIntoStage(allScoredMovies[0], false);
+        }
+      } catch (e) {
+        console.error("Failed to load recommendations:", e);
+      }
+    }
+
+    function initGenreFilters() {
+      const container = document.getElementById("genreFilterContainer");
+      if (!container) return;
+      container.innerHTML = "";
+
+      ALL_GENRES.forEach(g => {
+        const pill = document.createElement("div");
+        pill.className = `genre-filter-pill ${g === selectedGenreFilter ? 'active' : ''}`;
+        pill.innerText = g;
+        pill.onclick = () => {
+          selectedGenreFilter = g;
+          document.querySelectorAll("#genreFilterContainer .genre-filter-pill").forEach(el => el.classList.remove("active"));
+          pill.classList.add("active");
+          filterAndRenderCatalog();
+        };
+        container.appendChild(pill);
+      });
+    }
+
+    function initClipsGenreFilters() {
+      const container = document.getElementById("clipsGenreFilterRow");
+      if (!container) return;
+      container.innerHTML = "";
+
+      ALL_GENRES.forEach(g => {
+        const pill = document.createElement("div");
+        pill.className = `genre-filter-pill ${g === selectedClipsGenreFilter ? 'active' : ''}`;
+        pill.innerText = g;
+        pill.onclick = () => {
+          selectedClipsGenreFilter = g;
+          document.querySelectorAll("#clipsGenreFilterRow .genre-filter-pill").forEach(el => el.classList.remove("active"));
+          pill.classList.add("active");
+          filterAndRenderClips();
+        };
+        container.appendChild(pill);
+      });
+    }
+
+    function filterAndRenderCatalog() {
+      const grid = document.getElementById("catalogMoviesGrid");
+      if (!grid) return;
+
+      const query = (document.getElementById("catalogSearchInput")?.value || "").toLowerCase().trim();
+      const sortBy = document.getElementById("catalogSortSelect")?.value || "match";
+
+      let list = [...allScoredMovies];
+
+      if (selectedMediaTypeFilter !== "all") {
+        list = list.filter(m => (m.media_type || "movie") === selectedMediaTypeFilter);
+      }
+
+      if (selectedGenreFilter !== "All") {
+        list = list.filter(m => (m.genres || []).includes(selectedGenreFilter));
+      }
+
+      if (query) {
+        list = list.filter(m => 
+          m.title.toLowerCase().includes(query) ||
+          (m.director && m.director.toLowerCase().includes(query)) ||
+          (m.actors && m.actors.toLowerCase().includes(query)) ||
+          (m.sound_theme && m.sound_theme.toLowerCase().includes(query))
+        );
+      }
+
+      if (sortBy === "rating_desc") {
+        list.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
+      } else if (sortBy === "year_desc") {
+        list.sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
+      } else if (sortBy === "p_click_desc") {
+        list.sort((a, b) => (b.p_click || 0) - (a.p_click || 0));
+      } else {
+        list.sort((a, b) => (b.final_score || 0) - (a.final_score || 0));
+      }
+
+      document.getElementById("filteredCount").innerText = list.length;
+      grid.innerHTML = "";
+      list.forEach(m => {
+        grid.appendChild(createMovieCard(m));
+      });
+    }
+
+    function renderMainMovies(movies, user) {
+      const grid = document.getElementById("mainMoviesGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      (movies || []).forEach(m => {
+        grid.appendChild(createMovieCard(m));
+      });
+    }
+
+    function renderSeries(seriesList) {
+      const grid = document.getElementById("seriesGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      (seriesList || []).forEach(m => {
+        grid.appendChild(createMovieCard(m));
+      });
+    }
+
+    function renderRomComs(romcoms) {
+      const grid = document.getElementById("romcomsGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      (romcoms || []).forEach(m => {
+        grid.appendChild(createMovieCard(m));
+      });
+    }
+
+    function createMovieCard(m) {
+      const card = document.createElement("div");
+      card.className = "movie-card";
+      card.onclick = (e) => {
+        if (e.target.closest('.card-imdb-link') || e.target.closest('.card-clip-badge')) return;
+        openMovieModal(m);
+      };
+
+      const posterSrc = m.poster_url || "";
+      const posterCaption = (m.selected_poster || "").substring(2);
+      const imdbUrl = m.imdb_url || `https://www.imdb.com/find?q=${encodeURIComponent(m.title)}`;
+      const isSeries = m.media_type === "series";
+      const yearLabel = isSeries ? `📺 ${m.total_seasons || 'Series'}` : `${m.year}`;
+      const soundTheme = m.sound_theme || "Atmospheric Soundtrack & Strings";
+
+      card.innerHTML = `
+        <div class="movie-poster">
+          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" onerror="this.style.opacity='0'; this.nextElementSibling.style.display='flex';" />
+          <div class="poster-fallback-overlay" style="display: ${posterSrc ? 'none' : 'flex'};">
+            <div style="font-size:2.2rem; margin-bottom:8px;">${(m.selected_poster || (isSeries ? "📺" : "🎬")).split(" ")[0]}</div>
+            <div style="font-size:0.75rem; color:#94a3b8;">${m.title}</div>
+          </div>
+          <span class="category-subtle">${yearLabel}</span>
+          <span class="match-pill">★ ${m.match_pct || 90}% Match</span>
+          
+          <!-- Quick Clip Preview Badge with Sound Wave -->
+          <div class="card-clip-badge" title="Watch Short Clip with Sound" onclick="event.stopPropagation(); playQuickClipModal('${m.id}')">
+            <span class="eq-wave">
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+            </span>
+            <span>▶ Clip 🔊</span>
+          </div>
+
+          <a href="${imdbUrl}" target="_blank" rel="noopener noreferrer" class="card-imdb-link" title="Open ${m.title} on IMDb" onclick="event.stopPropagation()">
+            IMDb ↗
+          </a>
+          <div class="poster-gradient-overlay"></div>
+          <div class="poster-artwork-tag">🎨 ${posterCaption || m.title}</div>
+        </div>
+        <div class="movie-body">
+          <div>
+            <div class="movie-title">${m.title}</div>
+            <div class="movie-metadata">
+              <span style="color:var(--accent-gold-bright); font-weight:700;">★ ${m.rating}</span>
+              <span>•</span>
+              <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:130px;">${m.director}</span>
+              <span>•</span>
+              <span>${m.year}</span>
+            </div>
+            <div class="sound-theme-chip" title="${soundTheme}">
+              <span>🎧</span>
+              <span>${soundTheme}</span>
+            </div>
+            <div class="genres-row">
+              ${(m.genres || []).map(g => `<span class="genre-chip">${g}</span>`).join("")}
+            </div>
+          </div>
+          <div class="stats-footer">
+            <span>P(Click): <strong style="color:var(--accent-gold-bright);">${((m.p_click || 0.8) * 100).toFixed(0)}%</strong></span>
+            <span class="btn-details-hint">Watch Clip & Details ↗</span>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    /* ========================================================
+       CINEMA CLIPS LOUNGE FUNCTIONS
+       ======================================================== */
+    function filterAndRenderClips() {
+      const grid = document.getElementById("clipsPlaylistGrid");
+      if (!grid) return;
+
+      const query = (document.getElementById("clipsSearchInput")?.value || "").toLowerCase().trim();
+      let list = [...allScoredMovies];
+
+      if (selectedClipsGenreFilter !== "All") {
+        list = list.filter(m => (m.genres || []).includes(selectedClipsGenreFilter));
+      }
+
+      if (query) {
+        list = list.filter(m => 
+          m.title.toLowerCase().includes(query) ||
+          (m.director && m.director.toLowerCase().includes(query)) ||
+          (m.actors && m.actors.toLowerCase().includes(query)) ||
+          (m.sound_theme && m.sound_theme.toLowerCase().includes(query))
+        );
+      }
+
+      document.getElementById("clipsFilteredCount").innerText = list.length;
+      grid.innerHTML = "";
+
+      list.forEach((m, idx) => {
+        const card = document.createElement("div");
+        card.className = `clip-card ${idx === currentStageMovieIndex ? 'active-playing' : ''}`;
+        card.onclick = () => {
+          loadMovieIntoStage(m, true);
+          document.querySelectorAll(".clip-card").forEach(c => c.classList.remove("active-playing"));
+          card.classList.add("active-playing");
+          document.getElementById("heroStageCard").scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        const posterSrc = m.poster_url || "";
+        const isSeries = m.media_type === "series";
+
+        card.innerHTML = `
+          <div class="clip-thumbnail-wrapper">
+            <img src="${posterSrc}" alt="${m.title}" class="clip-thumb-img" loading="lazy" />
+            <div class="clip-play-overlay">▶</div>
+            <span class="clip-duration-badge">${m.clip_duration || '2:30'}</span>
+            <span class="category-subtle" style="top:8px; left:8px;">${isSeries ? '📺 Series' : '🎬 Movie'}</span>
+          </div>
+          <div class="clip-body">
+            <div>
+              <div class="clip-card-title">${m.title}</div>
+              <div class="clip-sound-theme">🎧 ${m.sound_theme || 'Cinematic Theme & Strings'}</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-tertiary); font-family:var(--font-mono); border-top:1px solid rgba(255,255,255,0.05); padding-top:6px;">
+              <span style="color:var(--accent-gold-bright); font-weight:700;">★ ${m.rating}</span>
+              <span>${m.year}</span>
+              <span style="color:var(--accent-champagne);">★ ${m.match_pct || 92}%</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function loadMovieIntoStage(m, autoplay = false) {
+      if (!m) return;
+      const stageIframe = document.getElementById("stageIframe");
+      const trailerId = m.trailer_id || "gCcx85zbxz4";
+      const isSeries = m.media_type === "series";
+
+      const autoplayParam = autoplay ? "1" : "0";
+      const muteParam = isStageSoundMuted ? "1" : "0";
+      stageIframe.src = `https://www.youtube-nocookie.com/embed/${trailerId}?autoplay=${autoplayParam}&mute=${muteParam}&enablejsapi=1&playsinline=1&rel=0&modestbranding=1`;
+
+      document.getElementById("stageTitle").innerText = m.title;
+      document.getElementById("stageYear").innerText = m.year;
+      document.getElementById("stageRating").innerText = m.rating || "8.5";
+      document.getElementById("stageMatch").innerText = `★ ${m.match_pct || 90}% Match`;
+      document.getElementById("stageMediaType").innerText = isSeries ? `📺 TV Series` : `🎬 Feature Film`;
+      document.getElementById("stageDirector").innerText = `${isSeries ? 'Created by' : 'Directed by'} ${m.director} • ${m.runtime || (isSeries ? m.total_seasons : '120 min')}`;
+      document.getElementById("stagePlot").innerText = m.plot || "A critically acclaimed cinematic masterpiece.";
+      document.getElementById("stageSoundTheme").innerText = m.sound_theme || "Epic Orchestral Theme & Sub-Bass";
+      document.getElementById("stageDuration").innerText = `⏱️ ${m.clip_duration || '2:30'} Clip`;
+      
+      const imdbUrl = m.imdb_url || `https://www.imdb.com/find?q=${encodeURIComponent(m.title)}`;
+      document.getElementById("stageImdbLink").href = imdbUrl;
+
+      // Play genre sonic stinger
+      if (autoplay) {
+        audioEngine.playGenreTheme((m.genres && m.genres[0]) || "Sci-Fi", m.title);
+      }
+    }
+
+    function toggleClipSound() {
+      const isMuted = audioEngine.toggleMute();
+      isStageSoundMuted = isMuted;
+      const volIcon = document.getElementById("volIcon");
+      if (volIcon) volIcon.innerText = isMuted ? "🔇" : "🔊";
+
+      if (allScoredMovies[currentStageMovieIndex]) {
+        loadMovieIntoStage(allScoredMovies[currentStageMovieIndex], true);
+      }
+    }
+
+    function handleVolumeChange(val) {
+      const volFloat = parseFloat(val) / 100.0;
+      audioEngine.setVolume(volFloat);
+      const volValue = document.getElementById("volValue");
+      if (volValue) volValue.innerText = `${val}%`;
+      const volIcon = document.getElementById("volIcon");
+      if (volIcon) volIcon.innerText = val == 0 ? "🔇" : (val < 50 ? "🔉" : "🔊");
+    }
+
+    function playCurrentSynthTheme() {
+      const m = allScoredMovies[currentStageMovieIndex];
+      if (m) {
+        audioEngine.playGenreTheme((m.genres && m.genres[0]) || "Sci-Fi", m.title);
+      }
+    }
+
+    function playNextClip() {
+      currentStageMovieIndex = (currentStageMovieIndex + 1) % (allScoredMovies.length || 1);
+      loadMovieIntoStage(allScoredMovies[currentStageMovieIndex], true);
+      filterAndRenderClips();
+    }
+
+    function playPreviousClip() {
+      currentStageMovieIndex = (currentStageMovieIndex - 1 + (allScoredMovies.length || 1)) % (allScoredMovies.length || 1);
+      loadMovieIntoStage(allScoredMovies[currentStageMovieIndex], true);
+      filterAndRenderClips();
+    }
+
+    function openActiveStageModal() {
+      if (allScoredMovies[currentStageMovieIndex]) {
+        openMovieModal(allScoredMovies[currentStageMovieIndex]);
+      }
+    }
+
+    /* ========================================================
+       MODAL OPERATIONS
+       ======================================================== */
+    function playQuickClipModal(movieId) {
+      const m = allScoredMovies.find(item => item.id === movieId);
+      if (m) {
+        openMovieModal(m, true);
+      }
+    }
+
+    function openMovieModal(m, autoplayVideo = true) {
+      const backdrop = document.getElementById("movieModalBackdrop");
+      if (!backdrop) return;
+
+      currentModalMovie = m;
+      const isSeries = m.media_type === "series";
+
+      document.getElementById("modalPosterImg").src = m.poster_url || "";
+      document.getElementById("modalPosterImg").alt = m.title;
+      document.getElementById("modalMovieTitle").innerText = m.title;
+      document.getElementById("modalYearDirector").innerText = `${m.year} • ${m.director}`;
+      
+      const imdbUrl = m.imdb_url || `https://www.imdb.com/find?q=${encodeURIComponent(m.title)}`;
+      document.getElementById("modalImdbBtn").href = imdbUrl;
+      document.getElementById("modalImdbRating").innerText = m.rating || "8.5";
+      document.getElementById("modalImdbVotes").innerText = m.imdb_votes ? `(${m.imdb_votes} votes)` : "";
+      document.getElementById("modalMediaType").innerText = isSeries ? `📺 TV Series` : `🎬 Feature Film`;
+      document.getElementById("modalRated").innerText = m.rated || (isSeries ? "TV-MA" : "PG-13");
+      document.getElementById("modalRuntime").innerText = m.runtime || (isSeries ? m.total_seasons : "120 min");
+      document.getElementById("modalMetascore").innerText = m.metascore ? `${m.metascore} Metascore` : "Universal Acclaim";
+      document.getElementById("modalMatchBadge").innerText = `★ ${m.match_pct || 90}% Two-Tower Match`;
+      
+      document.getElementById("modalPlotText").innerText = m.plot || `A critically acclaimed title directed by ${m.director} featuring visual storytelling and stellar performances.`;
+      document.getElementById("modalCast").innerText = m.actors || "Ensemble Cast";
+      document.getElementById("modalAwards").innerText = m.awards || (isSeries ? "Nominated for Emmy Awards" : "Acclaimed Contender");
+
+      const genresRow = document.getElementById("modalGenresRow");
+      genresRow.innerHTML = (m.genres || []).map(g => `<span class="genre-chip" style="font-size:0.75rem; padding:3px 9px;">${g}</span>`).join("");
+
+      document.getElementById("modalPClick").innerText = `${((m.p_click || 0.85) * 100).toFixed(0)}%`;
+      document.getElementById("modalPComplete").innerText = `${((m.p_complete || 0.82) * 100).toFixed(0)}%`;
+      document.getElementById("modalArtworkNote").innerHTML = `🎨 Personalized Artwork Bias Scene: <strong>${(m.selected_poster || m.title).substring(2)}</strong>`;
+
+      // Load Video Clip in Modal
+      const trailerId = m.trailer_id || "gCcx85zbxz4";
+      const modalVideoFrame = document.getElementById("modalVideoFrame");
+      const autoplayParam = autoplayVideo ? "1" : "0";
+      modalVideoFrame.src = `https://www.youtube-nocookie.com/embed/${trailerId}?autoplay=${autoplayParam}&enablejsapi=1&playsinline=1&rel=0&modestbranding=1`;
+
+      document.getElementById("modalClipDuration").innerText = `⏱️ ${m.clip_duration || '2:30'} Clip`;
+      document.getElementById("modalSoundTheme").innerText = `🎧 Soundtrack Aesthetic: ${m.sound_theme || 'Atmospheric Theme & Strings'}`;
+      document.getElementById("modalYoutubeBtn").href = `https://www.youtube.com/watch?v=${trailerId}`;
+
+      // Trigger Web Audio Genre Theme Stinger
+      if (autoplayVideo) {
+        audioEngine.playGenreTheme((m.genres && m.genres[0]) || "Sci-Fi", m.title);
+      }
+
+      backdrop.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function toggleModalVideoSound() {
+      if (currentModalMovie) {
+        const trailerId = currentModalMovie.trailer_id || "gCcx85zbxz4";
+        const modalVideoFrame = document.getElementById("modalVideoFrame");
+        modalVideoFrame.src = `https://www.youtube-nocookie.com/embed/${trailerId}?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0`;
+        audioEngine.playGenreTheme((currentModalMovie.genres && currentModalMovie.genres[0]) || "Sci-Fi", currentModalMovie.title);
+      }
+    }
+
+    function playModalSynthTheme() {
+      if (currentModalMovie) {
+        audioEngine.playGenreTheme((currentModalMovie.genres && currentModalMovie.genres[0]) || "Sci-Fi", currentModalMovie.title);
+      }
+    }
+
+    function closeMovieModal() {
+      const backdrop = document.getElementById("movieModalBackdrop");
+      if (backdrop) backdrop.classList.remove("active");
+      const modalVideoFrame = document.getElementById("modalVideoFrame");
+      if (modalVideoFrame) modalVideoFrame.src = ""; // Stop video playback
+      document.body.style.overflow = "auto";
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === "movieModalBackdrop") {
+        closeMovieModal();
+      }
+    }
+
+    /* ========================================================
+       LIVE AUDIO SPECTRUM EQUALIZER VISUALIZER LOOP
+       ======================================================== */
+    function initVisualizerLoop() {
+      const stageCanvas = document.getElementById("stageAudioEqCanvas");
+      const modalCanvas = document.getElementById("modalAudioEqCanvas");
+
+      function drawSpectrum(canvas) {
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const w = (canvas.width = canvas.offsetWidth || 300);
+        const h = (canvas.height = canvas.offsetHeight || 40);
+
+        ctx.clearRect(0, 0, w, h);
+
+        const barCount = 36;
+        const barWidth = (w / barCount) - 3;
+        const time = Date.now() * 0.004;
+
+        for (let i = 0; i < barCount; i++) {
+          const noise = Math.sin(time + i * 0.4) * Math.cos(time * 0.8 + i * 0.2);
+          const barHeight = Math.max(4, Math.abs(noise) * (h - 8) + Math.random() * 6);
+          const x = i * (barWidth + 3);
+          const y = h - barHeight;
+
+          const grad = ctx.createLinearGradient(0, y, 0, h);
+          grad.addColorStop(0, "#f59e0b");
+          grad.addColorStop(1, "#d4af37");
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.roundRect(x, y, barWidth, barHeight, [3, 3, 0, 0]);
+          ctx.fill();
+        }
+      }
+
+      function animate() {
+        drawSpectrum(stageCanvas);
+        if (document.getElementById("movieModalBackdrop")?.classList.contains("active")) {
+          drawSpectrum(modalCanvas);
+        }
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    /* ========================================================
+       TRAINING SIMULATION STUDIO
+       ======================================================== */
+    function initTrainChart() {
+      const ctx = document.getElementById("trainChartCanvas").getContext("2d");
+      trainChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: epochHistory.map(e => `Ep ${e}`),
+          datasets: [
+            {
+              label: "In-Batch Loss",
+              data: lossHistory,
+              borderColor: "#f59e0b",
+              backgroundColor: "rgba(245, 158, 11, 0.06)",
+              borderWidth: 2,
+              tension: 0.25,
+              fill: true,
+              pointRadius: 3
+            },
+            {
+              label: "Recall@10",
+              data: recallHistory,
+              borderColor: "#cbd5e1",
+              borderDash: [4, 4],
+              borderWidth: 1.5,
+              tension: 0.25,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: "#94a3b8",
+                font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 },
+                boxWidth: 12
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: "rgba(255,255,255,0.03)" }, ticks: { color: "#64748b", font: { size: 10 } } },
+            y: { grid: { color: "rgba(255,255,255,0.03)" }, ticks: { color: "#64748b", font: { size: 10 } } }
+          }
+        }
+      });
+    }
+
+    async function trainSimulatedEpochs() {
+      const btn = document.getElementById("btnTrainEpochs");
+      btn.innerText = "Training...";
+      btn.disabled = true;
+
+      for (let i = 1; i <= 5; i++) {
+        const nextEpoch = epochHistory.length + 1;
+        const res = await fetch("/api/train-step", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ epoch: nextEpoch })
+        });
+        const data = await res.json();
+        
+        epochHistory.push(nextEpoch);
+        lossHistory.push(data.train_loss);
+        recallHistory.push(data.recall_10);
+        
+        document.getElementById("diagEpoch").innerText = `${nextEpoch} / ${nextEpoch}`;
+        document.getElementById("diagLoss").innerText = data.train_loss;
+        document.getElementById("diagRecall").innerText = `${(data.recall_10 * 100).toFixed(1)}%`;
+        document.getElementById("diagNdcg").innerText = data.ndcg_10;
+
+        trainChart.data.labels.push(`Ep ${nextEpoch}`);
+        trainChart.update();
+        await new Promise(r => setTimeout(r, 350));
+      }
+
+      btn.innerText = "Train 5 Epochs";
+      btn.disabled = false;
+    }
+  </script>
+
+  <script>
+    // Live Cinematic Dust & Projector Bokeh Particle System
+    (function initCinemaDust() {
+      const canvas = document.getElementById('cinemaDustCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.6,
+          color: Math.random() > 0.4 ? 'rgba(245, 158, 11, ' : (Math.random() > 0.5 ? 'rgba(225, 29, 72, ' : 'rgba(6, 182, 212, '),
+          alpha: Math.random() * 0.45 + 0.15,
+          speedX: (Math.random() - 0.5) * 0.35,
+          speedY: (Math.random() - 0.5) * 0.25 - 0.08,
+          pulseSpeed: Math.random() * 0.02 + 0.005,
+          pulse: Math.random() * Math.PI
+        });
+      }
+
+      function renderDust() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.pulse += p.pulseSpeed;
+
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
+
+          const currentAlpha = p.alpha + Math.sin(p.pulse) * 0.15;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + Math.max(0.05, currentAlpha) + ')';
+          ctx.shadowBlur = p.radius * 4;
+          ctx.shadowColor = p.color + '0.6)';
+          ctx.fill();
+        }
+
+        requestAnimationFrame(renderDust);
+      }
+
+      renderDust();
+    })();
+  </script>
+</body>
+</html>
