@@ -1867,6 +1867,444 @@
       margin-top: 10px;
     }
 
+
+    /* ==========================================================================
+       HOVERING CARTOON BOT (RECOMMENDER.AI) STYLES
+       ========================================================================== */
+    .recommender-bot-container {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    /* Floating Speech Bubble */
+    .bot-speech-bubble {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(168, 85, 247, 0.45);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      max-width: 230px;
+      position: relative;
+      pointer-events: auto;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: bubbleFloat 3.4s ease-in-out infinite;
+    }
+    .bot-speech-bubble:hover {
+      transform: translateY(-3px) scale(1.03);
+      border-color: rgba(236, 72, 153, 0.6);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(236, 72, 153, 0.3);
+    }
+    .bot-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 32px;
+      width: 10px;
+      height: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border-right: 1px solid rgba(168, 85, 247, 0.45);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.45);
+      transform: rotate(45deg);
+    }
+    .bubble-sparkle {
+      color: #ec4899;
+      font-size: 0.95rem;
+    }
+    .bubble-text {
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Bot Mascot Wrapper & Animations */
+    .bot-mascot-wrapper {
+      position: relative;
+      width: 90px;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .bot-figure {
+      animation: botHover 3.4s ease-in-out infinite;
+      transition: transform 0.25s ease;
+      transform-origin: center bottom;
+    }
+    .bot-mascot-wrapper:hover .bot-figure {
+      animation-play-state: paused;
+      transform: translateY(-8px) scale(1.08) rotate(-3deg);
+    }
+
+    .bot-shadow {
+      position: absolute;
+      bottom: 4px;
+      width: 52px;
+      height: 12px;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7) 0%, rgba(56, 189, 248, 0.15) 40%, transparent 70%);
+      border-radius: 50%;
+      animation: botShadow 3.4s ease-in-out infinite;
+    }
+
+    /* SVG Elements Animations */
+    .bot-antenna-orb {
+      animation: antennaPulse 1.8s ease-in-out infinite;
+    }
+    .bot-thruster-flame {
+      animation: flameFlicker 0.9s ease-in-out infinite alternate;
+      transform-origin: center top;
+    }
+    .bot-eyes-group {
+      animation: eyeScan 5s infinite;
+      transform-origin: center;
+    }
+    .bot-arm-left {
+      transform-origin: 26px 62px;
+      transition: transform 0.3s ease;
+    }
+    .bot-mascot-wrapper:hover .bot-arm-left {
+      animation: waveHand 0.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes botHover {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-13px) rotate(2deg); }
+    }
+    @keyframes botShadow {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(0.65); opacity: 0.4; }
+    }
+    @keyframes bubbleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+    @keyframes antennaPulse {
+      0%, 100% { fill: #ec4899; filter: drop-shadow(0 0 4px #ec4899); }
+      50% { fill: #a855f7; filter: drop-shadow(0 0 10px #38bdf8); }
+    }
+    @keyframes flameFlicker {
+      0% { opacity: 0.75; transform: scaleY(0.9) scaleX(0.95); }
+      100% { opacity: 1; transform: scaleY(1.2) scaleX(1.05); }
+    }
+    @keyframes eyeScan {
+      0%, 40%, 100% { transform: translateX(0); }
+      45%, 55% { transform: translateX(-2px); }
+      65%, 75% { transform: translateX(2px); }
+      80%, 85% { transform: scaleY(0.1); }
+      90% { transform: scaleY(1); }
+    }
+    @keyframes waveHand {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-35deg); }
+    }
+
+    /* Notification Sparkle Badge on Bot */
+    .bot-status-badge {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid #07080c;
+      box-shadow: 0 0 10px #ec4899;
+      animation: pulseSparkle 2s infinite ease-in-out;
+    }
+
+    /* Mini Assistant Drawer Popover */
+    .bot-drawer-popover {
+      position: fixed;
+      bottom: 120px;
+      right: 28px;
+      width: 380px;
+      max-width: calc(100vw - 40px);
+      max-height: 590px;
+      background: linear-gradient(135deg, rgba(16, 20, 32, 0.96), rgba(10, 13, 22, 0.98));
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.15);
+      backdrop-filter: blur(20px);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bot-drawer-popover.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-header {
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .drawer-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #d8b4fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .drawer-status {
+      font-size: 0.72rem;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .drawer-status::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #38bdf8;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+    .drawer-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .drawer-close-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff;
+    }
+
+    .drawer-body {
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .drawer-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .drawer-body::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.3);
+      border-radius: 4px;
+    }
+
+    .drawer-bot-greeting {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid #ec4899;
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Drawer Quick Vibe Pills */
+    .drawer-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .drawer-vibe-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 0.74rem;
+      color: #f1f5f9;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .drawer-vibe-pill:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.5);
+      transform: translateY(-1px);
+    }
+
+    /* Drawer Input Box */
+    .drawer-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .drawer-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.84rem;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .drawer-input:focus {
+      border-color: #a855f7;
+    }
+    .drawer-send-btn {
+      background: linear-gradient(135deg, #9333ea, #db2777);
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .drawer-send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Mini Recommendation Cards inside Drawer */
+    .drawer-results-title {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .drawer-movie-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .drawer-mini-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .drawer-mini-card:hover {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: rgba(168, 85, 247, 0.35);
+      transform: translateX(2px);
+    }
+    .drawer-mini-poster {
+      width: 40px;
+      height: 56px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1e293b;
+    }
+    .drawer-mini-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .drawer-mini-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .drawer-mini-meta {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin: 2px 0;
+    }
+    .drawer-mini-reason {
+      font-size: 0.7rem;
+      color: #e9d5ff;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .drawer-clip-btn {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #fbbf24;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .drawer-clip-btn:hover {
+      background: #f59e0b;
+      color: #000000;
+    }
+
+    .drawer-full-studio-btn {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #d8b4fe;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 4px;
+    }
+    .drawer-full-studio-btn:hover {
+      background: rgba(168, 85, 247, 0.3);
+      color: #ffffff;
+    }
+
 </style>
 </head>
 <body>
@@ -2864,6 +3302,142 @@ class TwoTowerRecommender(nn.Module):
       if (tabId === "tabMoodAI") {
         if (Object.keys(moodPresets).length === 0) {
           initMoodAI();
+      initBotSpeechRotation();
+
+    // =========================================================================
+    // HOVERING CARTOON BOT (RECOMMENDER.AI) INTERACTION LOGIC
+    // =========================================================================
+    const botPhrases = [
+      "Hey! Tell me your mood 🍿",
+      "Need a good laugh or cozy rom-com? ✨",
+      "Ask Recommender.ai anything! 🎬",
+      "Looking for a mind-bending twist? 🤯",
+      "Feeling tired after work? Click me! 🛋️",
+      "Let me pick the perfect movie tonight! 🤖",
+      "Want an adrenaline-packed heist? ⚡",
+      "Date night movie ideas? I got you! 🍷"
+    ];
+    let phraseIndex = 0;
+
+    function initBotSpeechRotation() {
+      const speechEl = document.getElementById('botSpeechText');
+      if (!speechEl) return;
+
+      setInterval(() => {
+        phraseIndex = (phraseIndex + 1) % botPhrases.length;
+        speechEl.style.opacity = '0';
+        setTimeout(() => {
+          speechEl.innerText = botPhrases[phraseIndex];
+          speechEl.style.opacity = '1';
+        }, 300);
+      }, 7000);
+    }
+
+    function toggleBotDrawer(forceState) {
+      const drawer = document.getElementById('botDrawerPopover');
+      if (!drawer) return;
+
+      const isCurrentlyOpen = drawer.classList.contains('open');
+      const newState = forceState !== undefined ? forceState : !isCurrentlyOpen;
+
+      if (newState) {
+        drawer.classList.add('open');
+        setTimeout(() => {
+          const input = document.getElementById('drawerMoodInput');
+          if (input) input.focus();
+        }, 200);
+      } else {
+        drawer.classList.remove('open');
+      }
+    }
+
+    async function sendDrawerMoodQuery(customQuery) {
+      const input = document.getElementById('drawerMoodInput');
+      const query = customQuery || (input ? input.value.trim() : '');
+      const promptQuery = query || 'cozy and low-stress rom-com';
+
+      if (input && !customQuery) input.value = '';
+
+      const greetingEl = document.getElementById('drawerBotGreeting');
+      if (greetingEl) {
+        greetingEl.innerHTML = `🔮 <em>Recommender.ai is analyzing your vibe:</em> <strong>"${promptQuery}"</strong>...`;
+      }
+
+      try {
+        const res = await fetch(`/api/mood-recommend?q=${encodeURIComponent(promptQuery)}&limit=4`);
+        const data = await res.json();
+        renderDrawerResults(data);
+      } catch (err) {
+        console.error('Drawer query error:', err);
+      }
+    }
+
+    function renderDrawerResults(data) {
+      const resultsSection = document.getElementById('drawerResultsSection');
+      const list = document.getElementById('drawerMovieList');
+      const greetingEl = document.getElementById('drawerBotGreeting');
+      const titleEl = document.getElementById('drawerResultsTitle');
+
+      if (!resultsSection || !list) return;
+      resultsSection.style.display = 'block';
+
+      const ma = data.mood_analysis;
+      if (greetingEl) {
+        greetingEl.innerHTML = `✨ <strong>${ma.archetype}</strong><br><span style="font-size:0.78rem; color:#cbd5e1;">${ma.insight}</span>`;
+      }
+
+      if (titleEl) {
+        titleEl.innerText = `🎬 Top Picks for Your Vibe:`;
+      }
+
+      const recs = data.recommendations || [];
+      list.innerHTML = recs.map(m => `
+        <div class="drawer-mini-card" onclick="openMovieModalFromCatalog('${m.id}')">
+          <img src="${m.poster_url}" alt="${m.title}" class="drawer-mini-poster" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=100'" />
+          <div class="drawer-mini-info">
+            <div class="drawer-mini-title">${m.title}</div>
+            <div class="drawer-mini-meta">
+              <span style="color:#f59e0b; font-weight:700;">★ ${m.rating}</span>
+              <span>•</span>
+              <span>${m.year}</span>
+              <span>•</span>
+              <span style="color:#a855f7;">${m.match_pct}% Match</span>
+            </div>
+            <div class="drawer-mini-reason">${m.ai_reason || 'Perfect match for this mood.'}</div>
+          </div>
+          <button class="drawer-clip-btn" title="Preview Clip" onclick="event.stopPropagation(); playQuickClipModal('${m.id}')">
+            ▶ Clip
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function openMovieModalFromCatalog(movieId) {
+      const movie = allScoredMovies.find(m => m.id === movieId) || 
+                    (currentRecommendations && currentRecommendations.recommendations ? currentRecommendations.recommendations.find(m => m.id === movieId) : null);
+      if (movie) {
+        openMovieModal(movie);
+      } else {
+        playQuickClipModal(movieId);
+      }
+    }
+
+    function openFullStudioFromDrawer() {
+      toggleBotDrawer(false);
+      showTab('tabMoodAI');
+      const studioInput = document.getElementById('moodTextInput');
+      const drawerInput = document.getElementById('drawerMoodInput');
+      if (studioInput && drawerInput && drawerInput.value) {
+        studioInput.value = drawerInput.value;
+        runMoodDiagnosis();
+      }
+    }
+
+    // Auto-initialize bot rotation on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initBotSpeechRotation();
+    });
+
         }
       } else if (tabId === "tabBrowseCatalog") {
         filterAndRenderCatalog();
@@ -3521,5 +4095,151 @@ class TwoTowerRecommender(nn.Module):
       renderDust();
     })();
   </script>
+
+  <!-- =========================================================================
+       HOVERING CARTOON BOT (RECOMMENDER.AI) WIDGET & DRAWER
+       ========================================================================= -->
+  <div class="recommender-bot-container" id="recommenderBotWidget">
+    <!-- Floating Speech Bubble -->
+    <div class="bot-speech-bubble" id="botSpeechBubble" onclick="toggleBotDrawer(true)">
+      <span class="bubble-sparkle">✨</span>
+      <span class="bubble-text" id="botSpeechText">Hey! Tell me your mood 🍿</span>
+    </div>
+
+    <!-- Cartoon SVG Bot Mascot -->
+    <div class="bot-mascot-wrapper" onclick="toggleBotDrawer()" title="Click to chat with Recommender.ai">
+      <div class="bot-status-badge"></div>
+      <div class="bot-figure">
+        <svg class="recommender-bot-svg" viewBox="0 0 120 140" width="82" height="96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="botChassis" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#334155"/>
+              <stop offset="50%" stop-color="#1e293b"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+            <linearGradient id="botScreen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#090d16"/>
+              <stop offset="100%" stop-color="#111827"/>
+            </linearGradient>
+            <linearGradient id="botGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a855f7"/>
+              <stop offset="50%" stop-color="#ec4899"/>
+              <stop offset="100%" stop-color="#38bdf8"/>
+            </linearGradient>
+            <linearGradient id="thrusterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9"/>
+              <stop offset="60%" stop-color="#a855f7" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Antenna -->
+          <line x1="60" y1="30" x2="60" y2="12" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="60" cy="10" r="6" fill="#ec4899" filter="url(#neonGlow)" class="bot-antenna-orb"/>
+          <circle cx="60" cy="10" r="3" fill="#ffffff"/>
+
+          <!-- Ear Bolts -->
+          <rect x="22" y="46" width="6" height="16" rx="3" fill="#64748b"/>
+          <circle cx="25" cy="54" r="2" fill="#38bdf8"/>
+          <rect x="92" y="46" width="6" height="16" rx="3" fill="#64748b"/>
+          <circle cx="95" cy="54" r="2" fill="#38bdf8"/>
+
+          <!-- Head / Chassis Body -->
+          <rect x="26" y="26" width="68" height="56" rx="20" fill="url(#botChassis)" stroke="url(#botGlow)" stroke-width="2.5"/>
+          
+          <!-- Screen Visor Face -->
+          <rect x="33" y="33" width="54" height="40" rx="14" fill="url(#botScreen)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5"/>
+
+          <!-- Digital Eyes -->
+          <g class="bot-eyes-group">
+            <ellipse cx="46" cy="49" rx="6.5" ry="7.5" fill="#38bdf8" filter="url(#neonGlow)" class="bot-eye left-eye"/>
+            <ellipse cx="74" cy="49" rx="6.5" ry="7.5" fill="#38bdf8" filter="url(#neonGlow)" class="bot-eye right-eye"/>
+            <circle cx="48" cy="47" r="2.5" fill="#ffffff"/>
+            <circle cx="76" cy="47" r="2.5" fill="#ffffff"/>
+            
+            <!-- Cute Blush Cheeks -->
+            <ellipse cx="39" cy="58" rx="3" ry="1.5" fill="#f472b6" opacity="0.75"/>
+            <ellipse cx="81" cy="58" rx="3" ry="1.5" fill="#f472b6" opacity="0.75"/>
+            
+            <!-- Smile Line -->
+            <path d="M54 58 Q60 63 66 58" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" fill="none" class="bot-mouth"/>
+          </g>
+
+          <!-- Little Arms / Hands -->
+          <path d="M26 62 Q16 68 22 76" stroke="#64748b" stroke-width="3.5" stroke-linecap="round" fill="none" class="bot-arm-left"/>
+          <circle cx="22" cy="76" r="3.5" fill="#94a3b8"/>
+          
+          <path d="M94 62 Q104 68 98 76" stroke="#64748b" stroke-width="3.5" stroke-linecap="round" fill="none" class="bot-arm-right"/>
+          <circle cx="98" cy="76" r="3.5" fill="#94a3b8"/>
+
+          <!-- Body Bottom & Cinema Badge -->
+          <rect x="42" y="78" width="36" height="14" rx="6" fill="url(#botChassis)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+          <polygon points="60,80 62,84 66,84 63,87 64,91 60,88 56,91 57,87 54,84 58,84" fill="#f59e0b"/>
+
+          <!-- Antigravity Thruster Plasma Flame -->
+          <ellipse cx="60" cy="96" rx="14" ry="4" fill="#38bdf8" opacity="0.8"/>
+          <path d="M50 96 Q60 124 70 96 Z" fill="url(#thrusterGrad)" class="bot-thruster-flame"/>
+        </svg>
+      </div>
+      <div class="bot-shadow"></div>
+    </div>
+  </div>
+
+  <!-- Recommender.ai Quick Assistant Drawer -->
+  <div class="bot-drawer-popover" id="botDrawerPopover">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span style="font-size:1.4rem;">🤖</span>
+        <div class="drawer-brand-text">
+          <div class="drawer-title">Recommender.ai</div>
+          <div class="drawer-status">Online & Ready to Suggest</div>
+        </div>
+      </div>
+      <button class="drawer-close-btn" onclick="toggleBotDrawer(false)" title="Close">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-bot-greeting" id="drawerBotGreeting">
+        "Hi there! How are you feeling tonight? Pick a vibe or tell me what you want to watch!"
+      </div>
+
+      <!-- Quick Vibe Pills -->
+      <div class="drawer-chips-row">
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('cozy and low-stress feel-good romcom')">🛋️ Cozy & Chill</button>
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('hilarious laugh out loud comedy')">😂 Hard Laughs</button>
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('romantic date night chemistry')">🍷 Date Night</button>
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('mind-bending sci-fi plot twist')">🤯 Mind-Bender</button>
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('high adrenaline action heist')">⚡ Action Rush</button>
+        <button class="drawer-vibe-pill" onclick="sendDrawerMoodQuery('emotional cry tearjerker drama')">💔 Good Cry</button>
+      </div>
+
+      <!-- Fast Chat Input Box -->
+      <div class="drawer-input-row">
+        <input type="text" id="drawerMoodInput" class="drawer-input" placeholder="Type mood (e.g. exhausted, date night)..." onkeydown="if(event.key==='Enter') sendDrawerMoodQuery()" />
+        <button class="drawer-send-btn" onclick="sendDrawerMoodQuery()">✨ Match</button>
+      </div>
+
+      <!-- Live Dynamic Results -->
+      <div id="drawerResultsSection" style="display:none;">
+        <div class="drawer-results-title" id="drawerResultsTitle">Top AI Recommendations:</div>
+        <div class="drawer-movie-list" id="drawerMovieList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Full Studio Link -->
+      <button class="drawer-full-studio-btn" onclick="openFullStudioFromDrawer()">
+        🚀 Open Full Recommender.ai Studio
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>
