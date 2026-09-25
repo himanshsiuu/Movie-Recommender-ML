@@ -3067,13 +3067,29 @@ class TwoTowerRecommender(nn.Module):
       initGenreFilters();
       initClipsGenreFilters();
       loadRecommendations(activeUserId);
+      initMoodAI();
+      initBotSpeechRotation();
       initTrainChart();
       initVisualizerLoop();
 
-      // Close modal on Escape key
+      // Close modal on Escape key & shortcut keys
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeMovieModal();
+        if (e.key === "Escape") {
+          closeMovieModal();
+          toggleBotDrawer(false);
+        }
         if (e.key === "m" || e.key === "M") toggleClipSound();
+      });
+
+      // Close bot drawer when clicking outside
+      document.addEventListener("click", (e) => {
+        const drawer = document.getElementById("botDrawerPopover");
+        const botWidget = document.getElementById("recommenderBotWidget");
+        if (drawer && drawer.classList.contains("open")) {
+          if (!drawer.contains(e.target) && !botWidget.contains(e.target)) {
+            toggleBotDrawer(false);
+          }
+        }
       });
     });
 
@@ -3297,9 +3313,15 @@ class TwoTowerRecommender(nn.Module):
       if (activeBtn) activeBtn.classList.add("active");
 
       if (tabId === "tabMoodAI") {
-        if (Object.keys(moodPresets).length === 0) {
+        if (!moodPresets || Object.keys(moodPresets).length === 0) {
           initMoodAI();
-      initBotSpeechRotation();
+        }
+      } else if (tabId === "tabBrowseCatalog") {
+        filterAndRenderCatalog();
+      } else if (tabId === "tabClips") {
+        filterAndRenderClips();
+      }
+    }
 
     // =========================================================================
     // HOVERING CARTOON BOT (RECOMMENDER.AI) INTERACTION LOGIC
@@ -3410,7 +3432,7 @@ class TwoTowerRecommender(nn.Module):
     }
 
     function openMovieModalFromCatalog(movieId) {
-      const movie = allScoredMovies.find(m => m.id === movieId) || 
+      const movie = (allScoredMovies && allScoredMovies.length > 0 ? allScoredMovies.find(m => m.id === movieId) : null) || 
                     (currentRecommendations && currentRecommendations.recommendations ? currentRecommendations.recommendations.find(m => m.id === movieId) : null);
       if (movie) {
         openMovieModal(movie);
@@ -3427,19 +3449,6 @@ class TwoTowerRecommender(nn.Module):
       if (studioInput && drawerInput && drawerInput.value) {
         studioInput.value = drawerInput.value;
         runMoodDiagnosis();
-      }
-    }
-
-    // Auto-initialize bot rotation on load
-    window.addEventListener('DOMContentLoaded', () => {
-      initBotSpeechRotation();
-    });
-
-        }
-      } else if (tabId === "tabBrowseCatalog") {
-        filterAndRenderCatalog();
-      } else if (tabId === "tabClips") {
-        filterAndRenderClips();
       }
     }
 
