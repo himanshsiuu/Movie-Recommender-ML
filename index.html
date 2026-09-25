@@ -1908,7 +1908,7 @@
     <!-- Navigation Tabs -->
     <nav class="nav-tabs">
       <button class="tab-btn ai-tab-btn" id="tabBtnMood" onclick="showTab('tabMoodAI')">
-        <span class="ai-sparkle-dot"></span> ✨ AI Mood & Genre Matcher
+        <span class="ai-sparkle-dot"></span> ✨ Recommender.ai
       </button>
       <button class="tab-btn active" onclick="showTab('tabRecom')">Curated Recommendations</button>
       <button class="tab-btn" onclick="showTab('tabClips')">🎞️ Cinema Clips & Audio Teasers (<span id="clipsTabCount">146</span>)</button>
@@ -1923,10 +1923,10 @@
     <!-- TAB: AI Mood & Genre Matcher -->
     <div class="tab-content" id="tabMoodAI">
       <div class="mood-hero-card">
-        <div class="mood-hero-badge">🔮 NEURAL EMOTION & VIBE DIAGNOSTIC AGENT</div>
-        <h2 class="mood-hero-title">Discover Your Genre & Movies by Mood</h2>
+        <div class="mood-hero-badge">🔮 RECOMMENDER.AI • NEURAL EMOTION & VIBE ENGINE</div>
+        <h2 class="mood-hero-title">Recommender.ai — Find Your Genre & Movies by Mood</h2>
         <p class="mood-hero-subtitle">
-          Tell our AI agent how you're feeling right now — your energy level, your evening context, or your emotional state. Our neural semantic engine diagnoses your ideal cinematic palette and handpicks perfectly matching titles from our 146-item library.
+          Tell Recommender.ai how you're feeling right now — your energy level, your evening context, or your emotional state. Our neural semantic engine diagnoses your ideal cinematic palette and handpicks perfectly matching titles from our 146-item library.
         </p>
 
         <!-- Quick Vibe Selector Chips -->
@@ -1940,7 +1940,7 @@
         <!-- Custom Mood Natural Language Input -->
         <div class="mood-input-container">
           <div class="mood-input-header">
-            <span>💬 Describe your vibe or current evening:</span>
+            <span>💬 Tell Recommender.ai about your vibe or current evening:</span>
             <div class="mood-suggestion-tags">
               <span class="suggestion-tag" onclick="appendMoodTag('cozy and low-stress')">+ Cozy & Low-Stress</span>
               <span class="suggestion-tag" onclick="appendMoodTag('hilarious witty comedy')">+ Hard Laughs</span>
@@ -1955,7 +1955,7 @@
             <div class="mood-actions-bar">
               <button class="mood-surprise-btn" onclick="triggerRandomMood()"><span style="margin-right:6px;">🎲</span> Surprise Me</button>
               <button class="mood-analyze-btn" id="btnAnalyzeMood" onclick="runMoodDiagnosis()">
-                <span class="btn-sparkle">✨</span> Analyze Mood & Match Movies
+                <span class="btn-sparkle">✨</span> Ask Recommender.ai
               </button>
             </div>
           </div>
@@ -1968,7 +1968,7 @@
         <div class="diagnosis-banner">
           <div class="diagnosis-header">
             <div>
-              <div class="diagnosis-label">AI EMOTION DIAGNOSIS</div>
+              <div class="diagnosis-label">RECOMMENDER.AI • NEURAL EMOTION DIAGNOSIS</div>
               <div class="diagnosis-archetype" id="diagArchetype">The Heartfelt Romantic & Comfort Seeker 💖</div>
               <div class="diagnosis-vibe-tag" id="diagVibeTag">Warmth, Charming Banter & Romantic Spark</div>
             </div>
@@ -2644,7 +2644,7 @@ class TwoTowerRecommender(nn.Module):
 
     
     // =========================================================================
-    // AI MOOD & GENRE RECOMMENDER LOGIC
+    // RECOMMENDER.AI AGENT LOGIC
     // =========================================================================
     let moodPresets = {};
     let activePresetId = null;
@@ -2711,7 +2711,7 @@ class TwoTowerRecommender(nn.Module):
       const btn = document.getElementById('btnAnalyzeMood');
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="btn-sparkle">⏳</span> Diagnosing Mood...';
+        btn.innerHTML = '<span class="btn-sparkle">⏳</span> Recommender.ai is Thinking...';
       }
 
       try {
@@ -2723,7 +2723,7 @@ class TwoTowerRecommender(nn.Module):
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '<span class="btn-sparkle">✨</span> Analyze Mood & Match Movies';
+          btn.innerHTML = '<span class="btn-sparkle">✨</span> Ask Recommender.ai';
         }
       }
     }

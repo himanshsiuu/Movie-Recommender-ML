@@ -49,7 +49,8 @@ class MovieDirectoryHandler(http.server.SimpleHTTPRequestHandler):
                 "app": "Himanshu's Movie Directory",
                 "port": PORT,
                 "catalog_size": len(MOVIES_CATALOG),
-                "users_count": len(USER_PROFILES)
+                "users_count": len(USER_PROFILES),
+                "ai_agent": "Recommender.ai"
             }).encode("utf-8"))
             return
 
@@ -152,7 +153,7 @@ def run():
     print(f"🎬  HIMANSHU'S MOVIE DIRECTORY — TWO-TOWER RECOMMENDATION ML SERVER")
     print(f"📡  Dashboard URL: http://localhost:{PORT}")
     print(f"📚  Total Movie Library: {len(MOVIES_CATALOG)} Movies")
-    print(f"🤖  AI Mood & Genre Recommender Engine: Active")
+    print(f"🤖  Recommender.ai Engine: Active")
     print("=" * 80)
     try:
         httpd.serve_forever()

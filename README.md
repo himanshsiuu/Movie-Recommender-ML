@@ -9,6 +9,12 @@ A modern, full-stack movie & TV series recommendation platform powered by **Two-
 
 ---
 
+## 🤖 Recommender.ai — Neural Mood & Genre Matcher
+
+- **Natural Language Emotion Diagnosis**: Tell **Recommender.ai** your emotional state or current mood, and it infers your optimal 8D genre vector, archetype, and cognitive energy levels.
+- **9 Quick Vibe Archetypes**: 1-click access to curated moods (*Cozy Comfort, Hard Laughs, Date Night, Mind-Bender, Adrenaline Rush, Dark Mystery, Emotional Catharsis, Whimsical Escapism, Auteur Masterpiece*).
+- **Context-Aware Recommendations**: Handpicks titles with tailored AI explanations for why each movie matches your current vibe.
+
 ## ✨ Features
 
 - **🧠 Two-Tower Neural Candidate Retrieval & Ranking**:

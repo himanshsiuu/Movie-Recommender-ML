@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AI Mood & Genre Recommendation Agent
+Recommender.ai - Neural Mood & Genre Recommendation Agent
 Analyzes natural language user mood, energy levels, emotional context, and social vibe to diagnose the ideal movie genres and recommend matching titles from the 146-item catalog.
 """
 
@@ -381,6 +381,7 @@ def get_mood_recommendations(query_text: str, top_k: int = 12) -> Dict[str, Any]
     scored_movies.sort(key=lambda x: x["mood_score"], reverse=True)
 
     return {
+        "agent_name": "Recommender.ai",
         "mood_analysis": mood_analysis,
         "recommendations": scored_movies[:top_k],
         "total_catalog_count": len(MOVIES_CATALOG),
