@@ -1,0 +1,2 @@
+# Movie-Recommender-ML Dependencies
+# Zero external runtime dependencies - Built on high-performance Python 3.9+ standard library

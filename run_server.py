@@ -13,7 +13,7 @@ import urllib.parse
 import random
 import math
 
-PORT = 8084
+PORT = int(os.environ.get("PORT", os.environ.get("RENDER_PORT", 8084)))
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(DIRECTORY, "python_agent"))
 
