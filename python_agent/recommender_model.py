@@ -2157,7 +2157,7 @@ MOVIES_CATALOG = [
             "box",
             "rain"
         ],
-        "poster_url": "https://m.media-amazon.com/images/M/MV5BNTU5MTFlYmItMGI4Ni00OTJkLTlmZTUtNzcyNzcxM2Y4MWI0XkEyXkFqcGdeQXVyNzg5OTk2OA@@._V1_SX300.jpg",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BY2MyZWJhNjktMWQ2My00OTgwLWI1NjEtYjUzM2M2N2M4Mzc4XkEyXkFqcGc@._V1_SX300.jpg",
         "poster_variants": {
             "action": "\ud83d\udce6 Desert power line delivery sequence at sunset",
             "emotional": "\ud83c\udf27\ufe0f Detectives sharing coffee under torrential city downpour"
@@ -4658,7 +4658,7 @@ MOVIES_CATALOG = [
             "coen brothers",
             "heist"
         ],
-        "poster_url": "https://m.media-amazon.com/images/M/MV5BNTUxOGQxYjMtYWI5NS00YTljLWE3MTItODczYTRlYTI3OWRiXkEyXkFqcGc@._V1_SX300.jpg",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BMjMzMTIzMTUwN15BMl5BanBnXkFtZTgwNjE0NTg0MTE@._V1_SX300.jpg",
         "poster_variants": {
             "action": "\u2744\ufe0f Lorne Malvo standing in snow blizzard outside motel room",
             "emotional": "\ud83e\ude78 Red blood trail across white frozen Minnesota lake"
@@ -4776,7 +4776,7 @@ MOVIES_CATALOG = [
                     "Australia",
                     "enemies to lovers"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjYwOTg4Y2YtNmY3My00NTdhLWExNWQtNDM1ODNmMWVkMDc3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BZWUxYTFhMzItMmE0ZC00ODgzLTkwZWItOGUwMTI1YjQwMDJjXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Sydney opera house sunrise breeze",
                     "emotional": "🌹 Unwritten acoustic guitar & Australian beach vibes"
@@ -4852,7 +4852,7 @@ MOVIES_CATALOG = [
                     "Los Angeles",
                     "Christmas"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMTI1MDk0MTIzMV5BMl5BanBnXkFtZTcwNzQzMzkzMQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BZmEwNDg0M2QtMDdiNy00YTliLTk4ZjctOThjZjczODVmMTdkXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Snowbound cozy English country cottage fireplace",
                     "emotional": "🌹 Film scoring piano duet in Los Angeles sunlit kitchen"
@@ -4967,7 +4967,7 @@ MOVIES_CATALOG = [
                     "makeover",
                     "90s fashion"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTBmNTFiYzUtYWQ5Yy00MTY1LWE2YjktYmRlMzAwMTg3OGE1XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMTgwYjQ1NDktOTcwNi00MWZhLTliYWQtZDg5NjZhY2U5ZTNlXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Yellow plaid blazer on Beverly Hills boulevard",
                     "emotional": "🌹 Romantic water fountain fountain stairs epiphany"
@@ -5006,7 +5006,7 @@ MOVIES_CATALOG = [
                     "Alaska",
                     "immigration"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BOGM5YTNiYzktNmEwOS00OTk4LTkyNjgtMTQyZTU3NTlmZDM3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BYWU3ZmFhYTktNzU4NS00ZTEyLTkwNTYtMWE1M2JjMTFmODVkXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Alaskan fjord boat ride surrounded by snowcaps",
                     "emotional": "🌹 Get Low tribal chant dance around forest bonfire"
@@ -5044,7 +5044,7 @@ MOVIES_CATALOG = [
                     "Manhattan",
                     "workaholic"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BYzA5ZTMyN2YtMjFiNS00ZjE2LTg3NTEtMTQ4ODJjYzg4YTVmXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMTk0MDUyMzA1OF5BMl5BanBnXkFtZTgwNzA4NzE1NTM@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Rooftop pizza slice date under Manhattan skyline",
                     "emotional": "🌹 Elevator breakdown accidental moment of warmth"
@@ -5083,7 +5083,7 @@ MOVIES_CATALOG = [
                     "sea life",
                     "first date"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjAwMzc4MDcxNF5BMl5BanBnXkFtZTYwOTYzMzQ3._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjAwMzc4MDgxNF5BMl5BanBnXkFtZTYwNjUwMzE3._V1_QL75_UX380_CR0,1,380,562_.jpg",
             "poster_variants": {
                     "action": "💖 Hawaiian beach waffle house drawing scene",
                     "emotional": "🌹 Morning videotape revelation with sailing yacht in Alaska"
@@ -5122,7 +5122,7 @@ MOVIES_CATALOG = [
                     "childhood friend",
                     "Manhattan"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNDk0NjYxMzIzOF5BMl5BanBnXkFtZTcwMTc5MzcyMQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjE1NzI5NTkwMF5BMl5BanBnXkFtZTYwOTA4NzY2._V1_QL75_UX380_CR0,2,380,562_.jpg",
             "poster_variants": {
                     "action": "💖 Thriller group dance routine at magazine party",
                     "emotional": "🌹 Dollhouse wish dust on childhood porch swing"
@@ -5161,7 +5161,7 @@ MOVIES_CATALOG = [
                     "awkward romance",
                     "Christmas"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BYmZmZTI2N2MtNDU3Zi00N2YxLWIzMDUtZjU3Y2Y5YWYwOGE5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTM1MTFiNDEtMGYzZC00MjM5LWEwMWMtN2VhNjg1MTEzOTg3XkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Snowy London street run in leopard print underwear",
                     "emotional": "🌹 Blue string soup dinner party with friends"
@@ -5200,7 +5200,7 @@ MOVIES_CATALOG = [
                     "fake relationship",
                     "family"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjA5OTg3Njg2OF5BMl5BanBnXkFtZTgwMjc4MTExNjM@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjQ3NjM5MTAzN15BMl5BanBnXkFtZTgwODQzMDAwNjM@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Ski trip hot tub conversation in winter twilight",
                     "emotional": "🌹 Vintage Diner milkshake contract signing scene"
@@ -5239,7 +5239,7 @@ MOVIES_CATALOG = [
                     "hospital",
                     "family"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BYzJkYzg2OTktNzkzMi00MGMzLTljMmEtMjc0NDM3NmUzZWM2XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BYWQ4MWVkMTMtOTE4YS00Y2VmLWE5Y2YtMWJkOTMwZjIyZjY4XkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Standup comedy club dressing room conversation",
                     "emotional": "🌹 Hospital waiting room cross-cultural bond"
@@ -5279,7 +5279,7 @@ MOVIES_CATALOG = [
                     "school band",
                     "dreams"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjM4OTExNDkzN15BMl5BanBnXkFtZTgwOTEwMTk2NzE@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjEzODA3MDcxMl5BMl5BanBnXkFtZTgwODgxNDk3NzE@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Drive It Like You Stole It 50s prom hallucination",
                     "emotional": "🌹 Dublin harbor speedboat escape into open sea"
@@ -5319,7 +5319,7 @@ MOVIES_CATALOG = [
                     "rooftop",
                     "songwriting"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTg0NTA5MDk4MF5BMl5BanBnXkFtZTgwNTU5NTE5MTE@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNjAxMTI4MTgzMV5BMl5BanBnXkFtZTgwOTAwODEwMjE@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Underground subway station recording session",
                     "emotional": "🌹 Times Square headphone splitter night promenade"
@@ -5358,7 +5358,7 @@ MOVIES_CATALOG = [
                     "Chicago",
                     "jealousy"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BZGQ1NDFkYzAtZDRhNS00NmY2LWI1YzktZjQ4Njk5ZTEwY2FlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNzhlZjE4NTYtZDBlOC00NTAwLWFmMTQtMWVjNDQwZGI1MjViXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Seafood restaurant Say A Little Prayer singalong",
                     "emotional": "🌹 Chicago riverboat slow dance confession"
@@ -5397,7 +5397,7 @@ MOVIES_CATALOG = [
                     "Seattle",
                     "destiny"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTIxMDI0MTctYTFlMS00YzcyLWI2YjMtNDRhNDRhOGM2YzU2XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMzYwNzNlYWEtY2NiMC00Y2ZkLWFmYzUtYWU4ZTQ5YTAyNTZmXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Empire State Building Valentine's observation deck",
                     "emotional": "🌹 Seattle houseboat evening radio monologue"
@@ -5436,7 +5436,7 @@ MOVIES_CATALOG = [
                     "Upper West Side",
                     "enemies to lovers"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BOGY5NWFlYTAtYmRhMS00NGUzLTlmZjQtMmEzZTEwYTZiOGRhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BN2FhMWRiODYtMTQwMy00OTE2LTlhZjMtNWRmYmIyZjYwYTk1XkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Riverside Park springtime flower garden reveal",
                     "emotional": "🌹 Charming Corner Bookstore Christmas window"
@@ -5476,7 +5476,7 @@ MOVIES_CATALOG = [
                     "redemption",
                     "Pennsylvania"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMmM3OTlmNWUtODQzNi00YTU4LWExMmQtMDQ1MmU1YTA4ZjhhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BOWE3MjQ3ZDAtNDQ2MC00YjBjLTk0ZWYtNjQ0YzQ4YWE3YTEyXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Rachmaninoff piano solo recital at town celebration",
                     "emotional": "🌹 Snow sculpture portrait in moonlit park"
@@ -5514,7 +5514,7 @@ MOVIES_CATALOG = [
                     "advice",
                     "gossip columnist"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNzQ0NjcwNjA5OV5BMl5BanBnXkFtZTcwMTgwNDcyMQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNzYyNzM2NzM2NF5BMl5BanBnXkFtZTcwNjg5NTQzMw@@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Ellis Island jet ski date accident in harbor",
                     "emotional": "🌹 Cooking dinner with swollen allergic reaction face"
@@ -5552,7 +5552,7 @@ MOVIES_CATALOG = [
                     "headhunter",
                     "Grand Central"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMTQ4NTQ5MTQ1NF5BMl5BanBnXkFtZTcwNTAwNDkyNQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMTQ2MzQ0NTk4N15BMl5BanBnXkFtZTcwMDc2NDYzNQ@@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Grand Central Terminal flash mob dance serenade",
                     "emotional": "🌹 Hollywood sign rooftop midnight conversation"
@@ -5590,7 +5590,7 @@ MOVIES_CATALOG = [
                     "makeover",
                     "courtroom"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTEyNjUwMTkxMV5BMl5BanBnXkFtZTcwNjk0NDk0MQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNTEyNjUwMTkxMV5BMl5BanBnXkFtZTcwNjk0NDk0NA@@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Harvard Law courtroom perm chemistry breakthrough",
                     "emotional": "🌹 Delta Nu sorority bend-and-snap beauty salon"
@@ -5629,7 +5629,7 @@ MOVIES_CATALOG = [
                     "heartbreak",
                     "retro"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BYzA1YjM4OTAtN2MzYS00YjBhLTljZGEtMzVlZTg2YzQzY2VkXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNjU5MGYxNGMtMWZjNC00ZGYxLWIzY2YtNWExNDFlNmQwYzU0XkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 First-class airplane Grow Old With You serenade",
                     "emotional": "🌹 Wedding reception Love Stinks rock breakdown"
@@ -5668,7 +5668,7 @@ MOVIES_CATALOG = [
                     "love letters",
                     "vineyard"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjExNjRjODgtOTVhYi00MDc3LTgyMDktYTBhM2Y1MDVmMmU2XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BMjg0OTU0NDYwNF5BMl5BanBnXkFtZTcwNzUwNTMyMw@@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Verona courtyard Juliet letter extraction",
                     "emotional": "🌹 Tuscan vineyard golden hour sunset proposal"
@@ -5707,7 +5707,7 @@ MOVIES_CATALOG = [
                     "walk and talk",
                     "modern love"
             ],
-            "poster_url": "https://m.media-amazon.com/images/M/MV5BZDY0M2ExZTUtM2QzMy00ZmI1LWI2ZTgtMjAwMzkxNDAwYTU5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+            "poster_url": "https://m.media-amazon.com/images/M/MV5BNDIzZmIwZDYtOGI5Mi00ZTcxLTg3YWQtYWNiY2NmNDRkMzNlXkEyXkFqcGc@._V1_SX300.jpg",
             "poster_variants": {
                     "action": "💖 Peckham colorful market stroll with ice cream",
                     "emotional": "🌹 Art gallery restroom accidental meet-cute"

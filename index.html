@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎬 Himanshu's Movie & Series Directory — Two-Tower ML, Video Clips & Sound Preview</title>
   <meta name="description" content="A timeless, classic and minimal movie & TV series recommendation engine powered by Two-Tower Neural Embeddings with 146+ curated titles, live video preview clips with sound, and official IMDb integration.">
@@ -2780,7 +2781,7 @@ class TwoTowerRecommender(nn.Module):
       <div class="modal-content-grid">
         <!-- Poster Column -->
         <div class="modal-poster-col">
-          <img src="" alt="" id="modalPosterImg" class="modal-poster-img" />
+          <img src="" alt="" id="modalPosterImg" class="modal-poster-img" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500';" />
           <a href="#" target="_blank" rel="noopener noreferrer" id="modalImdbBtn" class="btn-imdb-main">
             <span>⭐ Open on IMDb</span>
             <span style="font-size:0.8rem;">↗</span>
@@ -3252,7 +3253,7 @@ class TwoTowerRecommender(nn.Module):
 
       card.innerHTML = `
         <div class="movie-poster">
-          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" onerror="this.style.opacity='0'; this.nextElementSibling.style.display='flex';" />
+          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.opacity='0'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
           <div class="poster-fallback-overlay" style="display: ${posterSrc ? 'none' : 'flex'};">
             <div style="font-size:2.2rem; margin-bottom:8px;">${(m.selected_poster || (isSeries ? '📺' : '🎬')).split(' ')[0]}</div>
             <div style="font-size:0.75rem; color:#94a3b8;">${m.title}</div>
@@ -3412,7 +3413,7 @@ class TwoTowerRecommender(nn.Module):
       const recs = data.recommendations || [];
       list.innerHTML = recs.map(m => `
         <div class="drawer-mini-card" onclick="openMovieModalFromCatalog('${m.id}')">
-          <img src="${m.poster_url}" alt="${m.title}" class="drawer-mini-poster" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=100'" />
+          <img src="${m.poster_url}" alt="${m.title}" class="drawer-mini-poster" referrerpolicy="no-referrer" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=100';" />
           <div class="drawer-mini-info">
             <div class="drawer-mini-title">${m.title}</div>
             <div class="drawer-mini-meta">
@@ -3631,7 +3632,7 @@ class TwoTowerRecommender(nn.Module):
 
       card.innerHTML = `
         <div class="movie-poster">
-          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" onerror="this.style.opacity='0'; this.nextElementSibling.style.display='flex';" />
+          <img src="${posterSrc}" alt="${m.title}" class="poster-img" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.opacity='0'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
           <div class="poster-fallback-overlay" style="display: ${posterSrc ? 'none' : 'flex'};">
             <div style="font-size:2.2rem; margin-bottom:8px;">${(m.selected_poster || (isSeries ? "📺" : "🎬")).split(" ")[0]}</div>
             <div style="font-size:0.75rem; color:#94a3b8;">${m.title}</div>
@@ -3724,7 +3725,7 @@ class TwoTowerRecommender(nn.Module):
 
         card.innerHTML = `
           <div class="clip-thumbnail-wrapper">
-            <img src="${posterSrc}" alt="${m.title}" class="clip-thumb-img" loading="lazy" />
+            <img src="${posterSrc}" alt="${m.title}" class="clip-thumb-img" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300';" />
             <div class="clip-play-overlay">▶</div>
             <span class="clip-duration-badge">${m.clip_duration || '2:30'}</span>
             <span class="category-subtle" style="top:8px; left:8px;">${isSeries ? '📺 Series' : '🎬 Movie'}</span>
